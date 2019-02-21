@@ -52,9 +52,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\DB_History.csproj">
-      <Project>{e7118853-22e2-425b-b2c5-37959b644e00}</Project>
-      <Name>DB_History</Name>
+    <ProjectReference Include="..\HistoryRepository\HistoryRepository.csproj">
+      <Project>{55fa7168-b0b0-4de7-980d-54a8ebb48c2a}</Project>
+      <Name>HistoryRepository</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
