@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="historyBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>203, 17</value>
-  </metadata>
-  <metadata name="calculatorHistoryDataSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="historyTableAdapter.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>370, 17</value>
-  </metadata>
+  <data name="AddError" xml:space="preserve">
+    <value>INSERT INTO History(Condition,Error) VALUES(@condition,@error)</value>
+  </data>
+  <data name="AddrRsult" xml:space="preserve">
+    <value>INSERT INTO History(Condition,Result) VALUES(@condition,@result)</value>
+  </data>
+  <data name="ConnectingString" xml:space="preserve">
+    <value>Data Source=HYPER2\MISC;Initial Catalog=CalculatorHistory;User ID=SA1;Password=111</value>
+  </data>
 </root>

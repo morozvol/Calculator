@@ -1,85 +1,72 @@
 ﻿using System;
 using System.Data;
-using System.Data.Common;
 using System.Data.SqlClient;
-using HistoryRepository;
 
 
-namespace History
+namespace HistoryRepository
 {
     public class History
     {
-        public SqlConnection Connection { get; private set; }
+        public SqlConnection Connection { get;  }
 
         public History()
         {
-            Connection = new SqlConnection(@"Data Source=HYPER2\MISC;Initial Catalog=CalculatorHistory;User ID=SA1;Password=111");
+            Connection = new SqlConnection(Properties.Resource.ConnectingString);
 
         }
 
+
         public void AddRecord(string condition, double result)
         {
-            string sql = "INSERT INTO History(Condition,Result) VALUES(@condition,@result)";
-            SqlCommand cmd = new SqlCommand(sql, Connection);
-            cmd.Parameters.Add("@condition", SqlDbType.Text).Value = condition;
-            cmd.Parameters.Add("@result", SqlDbType.Float).Value = result;
-            cmd.CommandType = CommandType.Text;
-            cmd.ExecuteNonQuery();
+            using (SqlCommand cmd = new SqlCommand(Properties.Resource.AddrRsult, Connection))
+            {
+                cmd.Parameters.Add("@condition", SqlDbType.Text).Value = condition;
+                cmd.Parameters.Add("@result", SqlDbType.Float).Value = result;
+                cmd.CommandType = CommandType.Text;
+                cmd.ExecuteNonQuery();
+            }
         }
 
         public void AddRecord(string condition, string textError)
         {
-            string sql = "INSERT INTO History(Condition,Error) VALUES(@condition,@error)";
-            SqlCommand cmd = new SqlCommand(sql, Connection);
-            cmd.Parameters.Add("@condition", SqlDbType.Text).Value = condition;
-            cmd.Parameters.Add("@error", SqlDbType.NVarChar).Value = textError;
-            cmd.CommandType = CommandType.Text;
-            cmd.ExecuteNonQuery();
-        }
-
-        public Record GetLastRecord()
-        {
-            Open();
-
-            SqlCommand cmd = this.Connection.CreateCommand();
-            cmd.CommandText = @"select * from History
-                              where id = (select max(id) from History)";
-            using (DbDataReader reader = cmd.ExecuteReader())
+            using (SqlCommand cmd = new SqlCommand(Properties.Resource.AddError, Connection))
             {
-                if (reader.HasRows)
+                cmd.Parameters.Add("@condition", SqlDbType.Text).Value = condition;
+                cmd.Parameters.Add("@error", SqlDbType.NVarChar).Value = textError;
+                cmd.CommandType = CommandType.Text;
+                cmd.ExecuteNonQuery();
+            }
+        }
+        public  Record GetRecord(int id)
+        {
+            string[] arr = new String[7];
+            using (SqlCommand command =
+                new SqlCommand(String.Format("Select * from [History] where Id={0}", id), Connection))
+            {Connection.Open();
+                // command.Parameters.AddWithValue("@zip", "india");
+                 command.ExecuteNonQuery();
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-
-                    while (reader.Read())
+                    if (reader.Read())
                     {
-                        var task = reader.IsDBNull(1) ? null : reader.GetString(1);
-                        double? result = reader.IsDBNull(2) ? null : (double?)reader.GetDouble(2);
-                        string error = reader.IsDBNull(3) ? null : reader.GetString(3);
-                        Close();
-                        return new Record(task, result, error);
+                        arr[0] = reader["Id"].ToString();
+                        arr[1] = reader["Condition"].ToString();
+                        arr[2] = reader["Result"].ToString();
+                        arr[3] = reader["Error"].ToString();
+                        arr[4] = reader["DateTime"].ToString();
+                        arr[5] = reader["Login"].ToString();
+                        arr[6] = reader["HostName"].ToString();
                     }
                 }
             }
-            Close();
-            return new Record(null, null, "ошибка чтения с базы данных");
+
+            double result;
+            double? My_Value = double.TryParse(arr[2], out result)
+                ? (double?)result
+                : null;
+            
+            return new Record(arr[1], My_Value, arr[3], arr[4], arr[5], arr[6]);
         }
 
-        public void Close()
-        {
-            Connection.Close();
-        }
-
-        public bool Open()
-        {
-            try
-            {
-                Connection.Open();
-            }
-            catch (SqlException)
-            {
-                return false;
-            }
-
-            return true;
-        }
     }
 }

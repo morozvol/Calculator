@@ -1,16 +1,15 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
+using HistoryRepository;
 
-
-namespace Calculator
+namespace Calculator.Console
 {
     class Program
     {
         private static void Main()
         {
 
-        var task = Console.ReadLine().Replace(" ", string.Empty);
-            History.History history = new History.History();
+        var task = System.Console.ReadLine().Replace(" ", string.Empty);
+            History history = new History();
 
             CultureInfo culture = CultureInfo.GetCultureInfo("ru-RU");
 
@@ -18,12 +17,12 @@ namespace Calculator
             var result = calculator.CalculateExpression();
 
             var lastRecord = history.GetLastRecord();
-            Console.Clear();
-            Console.WriteLine("{0}={1}{2}", lastRecord.Task,
+            System.Console.Clear();
+            System.Console.WriteLine("{0}={1}{2}", lastRecord.Task,
                 lastRecord.Result,
                 lastRecord.Error);
 
-            Console.ReadKey();
+            System.Console.ReadKey();
         }
     }
 }

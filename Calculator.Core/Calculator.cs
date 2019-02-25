@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Runtime.InteropServices;
-
-
+using Calculator.Core.Operations;
 namespace Calculator.Core
 {
     public class Calculator
@@ -11,13 +9,13 @@ namespace Calculator.Core
         public CultureInfo Culture { get; }
         public string Condition { get; private set; }
         public string Task { get;}
-        public bool Error { get; set; }
+        public bool IsError { get; set; }
      
         
         public Calculator(string condition,CultureInfo culture,string task)
         {
             Condition = condition;
-            Error = false;
+            IsError = false;
             Culture = culture;
             Task = task;
         }
@@ -59,11 +57,9 @@ namespace Calculator.Core
 
         private void OnErrorEvent(string str)
         {
-            History.History history =new History.History();
-            history.Open();
-            //TODO:: проверка на связь с сервером
-            history.AddRecord(Task,str);
-            Error = true;
+            IsError = true;
+            throw new ErrorException(str);
+          
           
         }
 
@@ -71,23 +67,15 @@ namespace Calculator.Core
         {   
             if (IsFindErrorInTask()) return "Error";
             ReplaceBinaryOperator();
-            var result=Simplify();
-            if (result != "Error")
-            {
-                History.History history = new History.History();
-                history.Open();
-                //TODO:: проверка на связь с сервером
-                history.AddRecord(Task, Double.Parse(result));
-                Error = true;
-            }
-            return result;
+            return Simplify();
+            
         }
 
         private string Simplify()
         {
             while (true)
             {
-                if (Error || Condition == "Error") return "Error";
+                if (IsError || Condition == "Error") return "Error";
                 Bracket bracket = FindTheActionIBrackets();
                 if (bracket.LengthBracket == 0) break;
                 {
@@ -103,10 +91,10 @@ namespace Calculator.Core
                 if (operations.Count == 0)
                 {
                     OnErrorEvent("Выражение введено неверно!");
-                    if (Error || Condition == "Error") return "Error";
+                    if (IsError || Condition == "Error") return "Error";
                 }
 
-                var main = Operation.ChooseTheMain(operations);
+                var main = Operation.ChooseMainOperation(operations);
                 main.Calculate();
                 ChangeCondition(main);
             }
@@ -129,7 +117,8 @@ namespace Calculator.Core
             byte openBracket = 128, lengthBracket;
             for (byte i = 0; i < Condition.Length; i++)
             {
-                if (Condition[i] == '(') openBracket = i;
+                if (Condition[i] == '(')
+                    openBracket = i;
                 if (Condition[i] == ')')
                 {
                     if (openBracket > i)
@@ -147,11 +136,8 @@ namespace Calculator.Core
 
         private List<Operation> SplitIntoOperation()
         {
-            var numbers = Condition.Split((Operation.Symbols).ToCharArray(),
-                StringSplitOptions.RemoveEmptyEntries);
-
-            var symbols = Condition.Split("0123456789.,-".ToCharArray(),
-                StringSplitOptions.RemoveEmptyEntries);
+            var numbers = Condition.Split(Operation.Creators.Keys.ToString().ToCharArray(),StringSplitOptions.RemoveEmptyEntries);
+            var symbols = Condition.Split("0123456789.,-".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
             
             int i = 0;
             List<Operation> Operations = new List<Operation>();
@@ -161,7 +147,7 @@ namespace Calculator.Core
                 {
                     var number1 = double.Parse(numbers[j], Culture);
                     var number2 = double.Parse(numbers[j + 1], Culture);
-                    Operations.Add(Operation.ChooseOperation(number1, number2, symbols[i]));
+                    Operations.Add(Creator.Create(number1, number2, symbols[i]));
                     i++;
                 }
                 catch (FormatException)
@@ -172,6 +158,8 @@ namespace Calculator.Core
 
             return Operations;
         }
+
+
 
     }
 }

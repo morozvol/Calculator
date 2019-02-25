@@ -43,12 +43,18 @@
     <Compile Include="Bracket.cs" />
     <Compile Include="Calculator.cs" />
     <Compile Include="ErrorExeption.cs" />
-    <Compile Include="Operation.cs" />
-    <Compile Include="Operations\Div.cs" />
-    <Compile Include="Operations\Multiply.cs" />
-    <Compile Include="Operations\Pow.cs" />
-    <Compile Include="Operations\Subtract.cs" />
-    <Compile Include="Operations\Sum.cs" />
+    <Compile Include="Operations\Creator.cs" />
+    <Compile Include="Operations\Creators\DivCreator.cs" />
+    <Compile Include="Operations\Creators\MulCreator.cs" />
+    <Compile Include="Operations\Creators\PowCreator.cs" />
+    <Compile Include="Operations\Creators\SubCreator.cs" />
+    <Compile Include="Operations\Creators\SumCreator.cs" />
+    <Compile Include="Operations\Operation.cs" />
+    <Compile Include="Operations\SpecificOperation\Div.cs" />
+    <Compile Include="Operations\SpecificOperation\Mul.cs" />
+    <Compile Include="Operations\SpecificOperation\Pow.cs" />
+    <Compile Include="Operations\SpecificOperation\Sub.cs" />
+    <Compile Include="Operations\SpecificOperation\Sum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -57,5 +63,6 @@
       <Name>HistoryRepository</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
