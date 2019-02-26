@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using Calculator.Core.Operations;
 namespace Calculator.Core
 {
@@ -136,7 +137,7 @@ namespace Calculator.Core
 
         private List<Operation> SplitIntoOperation()
         {
-            var numbers = Condition.Split(Operation.Creators.Keys.ToString().ToCharArray(),StringSplitOptions.RemoveEmptyEntries);
+             var numbers = Condition.Split(String.Join("", Operation.Creators.Keys).ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
             var symbols = Condition.Split("0123456789.,-".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
             
             int i = 0;

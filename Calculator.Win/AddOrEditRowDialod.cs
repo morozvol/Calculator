@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using  HistoryRepository;
+using DevExpress.XtraExport.Helpers;
+using HistoryRepository;
 
 namespace Calculator.Win
 {
@@ -16,7 +17,7 @@ namespace Calculator.Win
                 Text = caption,
                 StartPosition = FormStartPosition.CenterScreen
             };
-          
+
             Record result = null;
             var labelCondition = new Label() {Left = 10, Top = 50, Text = "Условие"};
             var labelResult = new Label() {Left = 10, Top = 75, Text = "Результат"};
@@ -26,7 +27,7 @@ namespace Calculator.Win
             var labelHostName = new Label() {Left = 10, Top = 175, Text = "Имя компьютера"};
 
             var txtCondition = new TextBox() {Left = 125, Top = 50, Width = 350};
-            var txtResult = new TextBox() {Left = 125, Top = 75, Width = 350, };
+            var txtResult = new TextBox() {Left = 125, Top = 75, Width = 350,};
             var txtError = new TextBox() {Left = 125, Top = 100, Width = 350};
             var txtDateTime = new TextBox() {Left = 125, Top = 125, Width = 350};
             var txtLogin = new TextBox() {Left = 125, Top = 150, Width = 350};
@@ -34,22 +35,31 @@ namespace Calculator.Win
 
             if (record != null)
             {
-                //txtCondition.Text = record.Task;
-                //txtResult.Text = record.Result.ToString();
-                //txtError.Text = record.Error;
-                //txtDateTime.Text = record.DateTime;
-                //txtLogin.Text = record.Login;
-                //txtHostName.Text = record.HostName;
+                txtCondition.Text = record.Task;
+                txtResult.Text = record.Result.ToString();
+                txtError.Text = record.Error;
+                txtDateTime.Text = record.DateTime;
+                txtLogin.Text = record.Login;
+                txtHostName.Text = record.HostName;
             }
+
             var confirmation = new Button()
                 {Text = "Сохранить", Left = 350, Width = 100, Top = 225, DialogResult = DialogResult.OK};
             confirmation.Click += (sender, e) =>
             {
-                result = new Record(txtCondition.Text,Double.Parse(txtResult.Text),
-                    txtError.Text,txtDateTime.Text,txtLogin.Text,txtHostName.Text);
+                if (IsValid(txtCondition.Text, txtResult.Text, txtError.Text, txtDateTime.Text, txtLogin.Text,
+                    txtHostName.Text))
+                {
+                }
+
+                double res;
+                double? My_Value = double.TryParse(txtResult.Text, out res)
+                    ? (double?)res : null;
+
+                result = new Record(txtCondition.Text, My_Value,
+                    txtError.Text, txtDateTime.Text, txtLogin.Text, txtHostName.Text);
                 prompt.Close();
             };
-
 
 
             prompt.Controls.Add(confirmation);
@@ -71,7 +81,13 @@ namespace Calculator.Win
             prompt.AcceptButton = confirmation;
 
 
-            return result;
+            return prompt.ShowDialog() == DialogResult.OK ? result : null;
+        }
+
+        private static bool IsValid(string conditon, string result, string error, string dateTime, string login, string hostName)
+        {
+            var i = conditon;
+            return true;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Calculator.Core.Operations.SpecificOperation
         {
             Number1 = num1;
             Number2 = num2;
-            Options = "+";
+            Options = "^";
             _preorety = 3;
         }
 

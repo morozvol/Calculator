@@ -492,11 +492,11 @@ namespace Calculator.Win {
                 this.columnId.AllowDBNull = false;
                 this.columnId.ReadOnly = true;
                 this.columnId.Unique = true;
-                this.columnCondition.MaxLength = 250;
+                this.columnCondition.MaxLength = 256;
                 this.columnError.MaxLength = 256;
-                this.columnDateTime.MaxLength = 20;
-                this.columnLogin.MaxLength = 10;
-                this.columnHostName.MaxLength = 250;
+                this.columnDateTime.MaxLength = 256;
+                this.columnLogin.MaxLength = 256;
+                this.columnHostName.MaxLength = 256;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

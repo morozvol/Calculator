@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddError" xml:space="preserve">
-    <value>INSERT INTO History(Condition,Error) VALUES(@condition,@error)</value>
+    <value>INSERT INTO History(Condition,Error,DateTime,Login,HostName) VALUES(@condition,@error,@dateTime,@login,@hostName)</value>
   </data>
   <data name="AddrRsult" xml:space="preserve">
-    <value>INSERT INTO History(Condition,Result) VALUES(@condition,@result)</value>
+    <value>INSERT INTO History(Condition,Result,DateTime,Login,HostName) VALUES(@condition,@result,@dateTime,@login,@hostName)</value>
   </data>
   <data name="ConnectingString" xml:space="preserve">
     <value>Data Source=HYPER2\MISC;Initial Catalog=CalculatorHistory;User ID=SA1;Password=111</value>

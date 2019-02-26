@@ -61,7 +61,7 @@ namespace HistoryRepository.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на INSERT INTO History(Condition,Error) VALUES(@condition,@error).
+        ///   Ищет локализованную строку, похожую на INSERT INTO History(Condition,Error,DateTime,Login,HostName) VALUES(@condition,@error,@dateTime,@login,@hostName).
         /// </summary>
         internal static string AddError {
             get {
@@ -70,7 +70,7 @@ namespace HistoryRepository.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на INSERT INTO History(Condition,Result) VALUES(@condition,@result).
+        ///   Ищет локализованную строку, похожую на INSERT INTO History(Condition,Result,DateTime,Login,HostName) VALUES(@condition,@result,@dateTime,@login,@hostName).
         /// </summary>
         internal static string AddrRsult {
             get {

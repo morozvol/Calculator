@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Calculator.Core.Operations.Creators;
 using Calculator.Core.Operations.SpecificOperation;
-using DivCreator = Calculator.Core.Operations.Creators.DivCreator;
 
 namespace Calculator.Core.Operations
 {
@@ -15,8 +14,9 @@ namespace Calculator.Core.Operations
 
        public  static readonly Dictionary<string, Creator> Creators = new Dictionary<string, Creator>()
        {
+          
+           {"~", new SubCreator()},
            {"+", new SumCreator()},
-           {"~", new SumCreator()},
            {"*", new MulCreator()},
            {"/", new DivCreator()},
            {"^", new PowCreator()},
