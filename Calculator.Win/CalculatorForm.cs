@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Globalization;
-using DevExpress.Utils.Menu;
-using DevExpress.XtraGrid.Menu;
-using HistoryRepository;
+using Calculator.HistoryRepository;
 
 
 namespace Calculator.Win
 {
     public partial class CalculatorForm : Form
     {
-        public event EventHandler Edit;
-        public event EventHandler Delete;
-        public event EventHandler Add;
+        private CultureInfo _culture;
 
-       private History _history = new History();
+        private History _history = new History();
 
         public CalculatorForm()
         {
@@ -24,18 +20,19 @@ namespace Calculator.Win
 
         private void btnCalculate_Click(object sender, EventArgs e)
         {
-            CultureInfo culture = CultureInfo.GetCultureInfo("ru-RU");
+            _culture = CultureInfo.GetCultureInfo("ru-RU");
 
-            Core.Calculator calculator = new Core.Calculator(txtTask.Text, culture, txtTask.Text);
+            Core.Calculator calculator = new Core.Calculator(txtTask.Text, _culture, txtTask.Text);
             try
             {
                 var result = calculator.CalculateExpression();
-                if (result != "Error") _history.AddRecord(txtTask.Text, Double.Parse(result, culture));
+                if (result != "Error") _history.AddRecord(txtTask.Text, Double.Parse(result, _culture));
             }
             catch (ErrorException ex)
             {
                 _history.AddRecord(txtTask.Text, ex.Message);
             }
+
             historyTableAdapter.Fill(calculatorHistoryDataSet.History);
             txtTask.Text = String.Empty;
         }
@@ -47,7 +44,9 @@ namespace Calculator.Win
 
         private void CalculatorForm_Load(object sender, EventArgs e)
         {
-            this.historyTableAdapter.Fill(this.calculatorHistoryDataSet.History);
+           
+            historyTableAdapter.Fill(calculatorHistoryDataSet.History);
+            gridView2.CloseEditor();
         }
 
 
@@ -72,7 +71,11 @@ namespace Calculator.Win
         private void EditRow(object sender, EventArgs e)
         {
             var Value = (int) gridView2.GetRowCellValue(gridView2.FocusedRowHandle, "Id");
-            var updateResult = AddOrEditRowDialod.ShowDialog("Редактирование", new History().GetRecord(Value));
+            AddOrEditDialog dialog = new AddOrEditDialog(_history.GetRecord(Value, _culture));
+            dialog.Text = "Редактирование";
+           dialog.ShowDialog();
+           var updateResult = dialog.GetResult();
+           
             if (updateResult != null)
             {
                 _history.updateRecord(updateResult, Value);
@@ -82,28 +85,11 @@ namespace Calculator.Win
 
         private void AddRow(object sender, EventArgs e)
         {
-            AddOrEditRowDialod.ShowDialog("Создание", null);
+            AddOrEditDialog dialog = new AddOrEditDialog(null);
+            dialog.Text = "Создание";
+            dialog.ShowDialog();
+            _history.AddRecord(dialog.GetResult());
             historyTableAdapter.Fill(calculatorHistoryDataSet.History);
-        }
-
-        private void gridView2_PopupMenuShowing(object sender,
-            DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventArgs e)
-        {
-            if (e.HitInfo.HitTest == DevExpress.XtraGrid.Views.Grid.ViewInfo.GridHitTest.RowCell)
-            {
-                GridViewMenu menu = new GridViewMenu(gridView2);
-                Delete += DeleteRow;
-                Edit += EditRow;
-                Add += AddRow;
-                menu.Items.Add(new DXMenuItem("Удалить", Delete));
-                menu.Items.Add(new DXMenuItem("Изменить", Edit));
-                menu.Items.Add(new DXMenuItem("Добавить", Add));
-                e.Menu = menu;
-            }
-        }
-
-        private void gridControl1_Click_1(object sender, EventArgs e)
-        {
         }
     }
 }

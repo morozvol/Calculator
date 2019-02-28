@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-using HistoryRepository;
+using Calculator.HistoryRepository;
 
 namespace Calculator.Console
 {
@@ -15,12 +15,9 @@ namespace Calculator.Console
 
             Core.Calculator calculator = new Core.Calculator(task, culture, task);
             var result = calculator.CalculateExpression();
-
-            var lastRecord = history.GetLastRecord();
             System.Console.Clear();
-            System.Console.WriteLine("{0}={1}{2}", lastRecord.Task,
-                lastRecord.Result,
-                lastRecord.Error);
+            System.Console.WriteLine("{0}={1}", task, result);
+               
 
             System.Console.ReadKey();
         }

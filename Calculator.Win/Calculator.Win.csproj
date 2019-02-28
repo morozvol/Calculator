@@ -52,15 +52,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddOrEditRowDialod.cs" />
+    <Compile Include="AddOrEditDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddOrEditDialog.Designer.cs">
+      <DependentUpon>AddOrEditDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="CalculatorForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CalculatorForm.Designer.cs">
       <DependentUpon>CalculatorForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CalculatorHistoryDataSet.cs">
-      <DependentUpon>CalculatorHistoryDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="CalculatorHistoryDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -69,6 +71,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AddOrEditDialog.resx">
+      <DependentUpon>AddOrEditDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CalculatorForm.resx">
       <DependentUpon>CalculatorForm.cs</DependentUpon>
     </EmbeddedResource>
