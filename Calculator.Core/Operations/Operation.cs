@@ -10,6 +10,7 @@ namespace Calculator.Core.Operations
         public double Result  { get; protected set; }
         public double Number1 { get; protected set; }
         public double Number2 { get; protected set; }
+        public string Error { get; protected set; }
         protected int _preorety;
 
        public  static readonly Dictionary<string, Creator> Creators = new Dictionary<string, Creator>()

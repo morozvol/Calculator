@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.Globalization;
 using Calculator.HistoryRepository;
+using Calculator.Win.Properties;
 
 
 namespace Calculator.Win
@@ -10,7 +11,7 @@ namespace Calculator.Win
     {
         private CultureInfo _culture;
 
-        private History _history = new History();
+        private History _history = new History(Settings.Default.CalculatorHistoryConnectionString);
 
         public CalculatorForm()
         {
@@ -26,14 +27,13 @@ namespace Calculator.Win
             try
             {
                 var result = calculator.CalculateExpression();
-                if (result != "Error") _history.AddRecord(txtTask.Text, Double.Parse(result, _culture));
+                if (result != "Error") _history.AddRecord(txtTask.Text, Double.Parse(result, _culture), null);
             }
             catch (ErrorException ex)
             {
-                _history.AddRecord(txtTask.Text, ex.Message);
+                _history.AddRecord(txtTask.Text, null, ex.Message);
             }
-
-            historyTableAdapter.Fill(calculatorHistoryDataSet.History);
+            calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
             txtTask.Text = String.Empty;
         }
 
@@ -44,9 +44,9 @@ namespace Calculator.Win
 
         private void CalculatorForm_Load(object sender, EventArgs e)
         {
-           
-            historyTableAdapter.Fill(calculatorHistoryDataSet.History);
-            gridView2.CloseEditor();
+          
+            calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
+            
         }
 
 
@@ -63,23 +63,22 @@ namespace Calculator.Win
             {
                 var id = (int) gridView2.GetRowCellValue(gridView2.FocusedRowHandle, "Id");
                 _history.DeleteRecord(id);
-                historyTableAdapter.Fill(calculatorHistoryDataSet.History);
+                calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
             }
         }
-
 
         private void EditRow(object sender, EventArgs e)
         {
             var Value = (int) gridView2.GetRowCellValue(gridView2.FocusedRowHandle, "Id");
             AddOrEditDialog dialog = new AddOrEditDialog(_history.GetRecord(Value, _culture));
             dialog.Text = "Редактирование";
-           dialog.ShowDialog();
-           var updateResult = dialog.GetResult();
-           
+            dialog.ShowDialog();
+            var updateResult = dialog.GetResult();
+
             if (updateResult != null)
             {
-                _history.updateRecord(updateResult, Value);
-                historyTableAdapter.Fill(calculatorHistoryDataSet.History);
+                _history.UpdateRecord(updateResult, Value);
+                calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
             }
         }
 
@@ -89,7 +88,7 @@ namespace Calculator.Win
             dialog.Text = "Создание";
             dialog.ShowDialog();
             _history.AddRecord(dialog.GetResult());
-            historyTableAdapter.Fill(calculatorHistoryDataSet.History);
+            calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
         }
     }
 }
