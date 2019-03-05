@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using Calculator.Core.Operations;
 namespace Calculator.Core
 {
@@ -21,17 +20,17 @@ namespace Calculator.Core
             Task = task;
         }
 
-        private bool IsFindErrorInTask()
+        private bool IsFindErrorInTask(ref Tracing tracing)
         {
             if (Condition.Length < 1)
             {
-                OnErrorEvent("введена пустая строка");
+                OnErrorEvent("введена пустая строка",ref tracing);
                 return true;
             }
 
             if (Condition.Split('(', ')').Length % 2 == 0)
             {
-                OnErrorEvent("ошибка скобок");
+                OnErrorEvent("ошибка скобок",ref tracing);
                 return true;
             }
 
@@ -56,46 +55,51 @@ namespace Calculator.Core
               return  double.TryParse(Condition, NumberStyles.Any, Culture, out buffer);
         }
 
-        private void OnErrorEvent(string str)
+        private void OnErrorEvent(string str,ref Tracing tracing)
         {
             IsError = true;
-            throw new ErrorException(str);
-          
-          
+            tracing.Error = str;
+            // throw new ErrorException(str);
+
+
         }
 
-        public string CalculateExpression()
+        public Tracing CalculateExpression()
         {   
-            if (IsFindErrorInTask()) return "Error";
+            Tracing tracing = new Tracing();
+            if (IsFindErrorInTask(ref tracing)) return tracing;
             ReplaceBinaryOperator();
-            return Simplify();
             
+              var result =  Simplify( ref tracing);
+              tracing.Result = result == "Error" ? null : (double?)Double.Parse(result);
+              return tracing;
         }
 
-        private string Simplify()
+        private string Simplify(ref Tracing tracing)
         {
             while (true)
             {
                 if (IsError || Condition == "Error") return "Error";
-                Bracket bracket = FindTheActionIBrackets();
+                Bracket bracket = FindTheActionIBrackets(ref tracing);
                 if (bracket.LengthBracket == 0) break;
                 {
                     var c2 = Condition.Substring(bracket.OpenBracketIndex, bracket.LengthBracket);
                     var calculator = new Calculator(c2.Substring(1, c2.Length - 2),Culture,Task);
-                    Condition = Condition.Replace(c2, calculator.Simplify());
+                    Condition = Condition.Replace(c2, calculator.Simplify(ref tracing));
                 }
             }
 
             while (!IsSimple())
             {
-                var operations = SplitIntoOperation();
+                var operations = SplitIntoOperation(ref tracing);
                 if (operations.Count == 0)
                 {
-                    OnErrorEvent("Выражение введено неверно!");
+                    OnErrorEvent("Выражение введено неверно!",ref tracing);
                     if (IsError || Condition == "Error") return "Error";
                 }
 
                 var main = Operation.ChooseMainOperation(operations);
+                tracing.list.Add(main);
                 main.Calculate();
                 ChangeCondition(main);
             }
@@ -109,8 +113,7 @@ namespace Calculator.Core
             Condition = Condition.Replace(String.Format("{0}{1}{2}", op.Number1, op.Options, op.Number2, Culture), op.Result.ToString(Culture));
         }
 
-
-        private Bracket FindTheActionIBrackets()
+        private Bracket FindTheActionIBrackets(ref Tracing tracing)
         {
             if (!Condition.Contains("(") || !Condition.Contains(")"))
                 return new Bracket(0, 0);
@@ -124,7 +127,7 @@ namespace Calculator.Core
                 {
                     if (openBracket > i)
                     {
-                        OnErrorEvent("ошибка скобок");
+                        OnErrorEvent("ошибка скобок", ref tracing);
                     }
 
                     lengthBracket = (byte) (i - openBracket + 1);
@@ -135,7 +138,7 @@ namespace Calculator.Core
             return new Bracket(0, 0);
         }
 
-        private List<Operation> SplitIntoOperation()
+        private List<Operation> SplitIntoOperation(ref Tracing tracing)
         {
              var numbers = Condition.Split(String.Join("", Operation.Creators.Keys).ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
             var symbols = Condition.Split("0123456789.,-".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
@@ -153,7 +156,7 @@ namespace Calculator.Core
                 }
                 catch (FormatException)
                 {
-                    OnErrorEvent("Выражение введено неверно!");
+                    OnErrorEvent("Выражение введено неверно!",ref tracing);
                 }
             }
 

@@ -24,15 +24,10 @@ namespace Calculator.Win
             _culture = CultureInfo.GetCultureInfo("ru-RU");
 
             Core.Calculator calculator = new Core.Calculator(txtTask.Text, _culture, txtTask.Text);
-            try
-            {
+           
                 var result = calculator.CalculateExpression();
-                if (result != "Error") _history.AddRecord(txtTask.Text, Double.Parse(result, _culture), null);
-            }
-            catch (ErrorException ex)
-            {
-                _history.AddRecord(txtTask.Text, null, ex.Message);
-            }
+                 _history.AddRecord(txtTask.Text, result);
+         
             calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
             txtTask.Text = String.Empty;
         }
@@ -44,9 +39,8 @@ namespace Calculator.Win
 
         private void CalculatorForm_Load(object sender, EventArgs e)
         {
-          
-            calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
-            
+  
+               calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
         }
 
 

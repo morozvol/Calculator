@@ -58,12 +58,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tracing.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HistoryRepository\HistoryRepository.csproj">
-      <Project>{55fa7168-b0b0-4de7-980d-54a8ebb48c2a}</Project>
-      <Name>HistoryRepository</Name>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

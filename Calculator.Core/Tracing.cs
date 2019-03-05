@@ -3,9 +3,10 @@ using Calculator.Core.Operations;
 
 namespace Calculator.Core
 {
-    class Tracing
+    public class Tracing
     {
-        private List<Operation> list { get;} = new List<Operation>();
-
+        public List<Operation> list { get;} = new List<Operation>();
+        public string Error { get; set; } = null;
+        public double? Result { get; set; } = null;
     }
 }

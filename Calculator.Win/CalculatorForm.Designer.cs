@@ -41,20 +41,13 @@ namespace Calculator.Win
             this.calcLogBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.calculatorHistoryDataSet = new Calculator.Win.CalculatorHistoryDataSet();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.colId1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colCondition1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colResult1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colError1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.coltime_calculation1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colLogin1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colhost_name1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCondition = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colResult = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colError = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.coltime_calculation = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colLogin = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colhost_name = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.создатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -138,7 +131,6 @@ namespace Calculator.Win
             this.gridControl1.TabIndex = 5;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView2});
-            
             // 
             // calcLogBindingSource
             // 
@@ -155,19 +147,22 @@ namespace Calculator.Win
             this.gridView2.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colId,
             this.colCondition,
-            this.colResult,
-            this.colError,
-            this.coltime_calculation,
+            this.gridColumn1,
+            this.gridColumn2,
+            this.gridColumn3,
             this.colLogin,
-            this.colhost_name});
+            this.gridColumn4});
             this.gridView2.GridControl = this.gridControl1;
             this.gridView2.Name = "gridView2";
-            this.gridView2.OptionsView.ShowGroupPanel = false;
             this.gridView2.OptionsBehavior.ReadOnly = true;
             this.gridView2.OptionsEditForm.ShowUpdateCancelPanel = DevExpress.Utils.DefaultBoolean.True;
             this.gridView2.OptionsView.ShowGroupPanel = false;
             this.gridView2.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
-                new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colId, DevExpress.Data.ColumnSortOrder.Descending)});
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colId, DevExpress.Data.ColumnSortOrder.Descending),
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colCondition, DevExpress.Data.ColumnSortOrder.Descending)});
+            //
+            //colId
+            //
             this.colId.FieldName = "Id";
             this.colId.Name = "colId";
             this.colId.OptionsColumn.AllowEdit = false;
@@ -185,36 +180,6 @@ namespace Calculator.Win
             this.colCondition.Visible = true;
             this.colCondition.VisibleIndex = 0;
             // 
-            // Result
-            // 
-            this.colResult.FieldName = "Result";
-            this.colResult.Name = "Result";
-            this.colResult.OptionsColumn.AllowEdit = false;
-            this.colResult.OptionsColumn.ShowInExpressionEditor = false;
-            this.colResult.OptionsEditForm.UseEditorColRowSpan = false;
-            this.colResult.Visible = true;
-            this.colResult.VisibleIndex = 1;
-            // 
-            // Error
-            // 
-            this.colError.FieldName = "Error";
-            this.colError.Name = "Error";
-            this.colError.OptionsColumn.AllowEdit = false;
-            this.colError.OptionsColumn.ShowInExpressionEditor = false;
-            this.colError.OptionsEditForm.UseEditorColRowSpan = false;
-            this.colError.Visible = true;
-            this.colError.VisibleIndex = 2;
-            // 
-            // colDateTime
-            // 
-            this.coltime_calculation.FieldName = "time_calculation";
-            this.coltime_calculation.Name = "colDateTime";
-            this.coltime_calculation.OptionsColumn.AllowEdit = false;
-            this.coltime_calculation.OptionsColumn.ShowInExpressionEditor = false;
-            this.coltime_calculation.OptionsEditForm.UseEditorColRowSpan = false;
-            this.coltime_calculation.Visible = true;
-            this.coltime_calculation.VisibleIndex = 3;
-            // 
             // colLogin
             // 
             this.colLogin.FieldName = "Login";
@@ -225,15 +190,46 @@ namespace Calculator.Win
             this.colLogin.Visible = true;
             this.colLogin.VisibleIndex = 4;
             // 
-            // colHostName
+            // gridColumn1
             // 
-            this.colhost_name.FieldName = "host_name";
-            this.colhost_name.Name = "colHostName";
-            this.colhost_name.OptionsColumn.AllowEdit = false;
-            this.colhost_name.OptionsColumn.ShowInExpressionEditor = false;
-            this.colhost_name.OptionsEditForm.UseEditorColRowSpan = false;
-            this.colhost_name.Visible = true;
-            this.colhost_name.VisibleIndex = 5;
+            this.gridColumn1.FieldName = "Result";
+            this.gridColumn1.Name = "gridColumn1";
+            this.gridColumn1.OptionsColumn.AllowEdit = false;
+            this.gridColumn1.OptionsColumn.ShowInExpressionEditor = false;
+            this.gridColumn1.OptionsEditForm.UseEditorColRowSpan = false;
+            this.gridColumn1.Visible = true;
+            this.gridColumn1.VisibleIndex = 1;
+            // 
+            // gridColumn2
+            // 
+            this.gridColumn2.FieldName = "Error";
+            this.gridColumn2.Name = "gridColumn2";
+            this.gridColumn2.OptionsColumn.AllowEdit = false;
+            this.gridColumn2.OptionsColumn.ShowInExpressionEditor = false;
+            this.gridColumn2.OptionsEditForm.UseEditorColRowSpan = false;
+            this.gridColumn2.Visible = true;
+            this.gridColumn2.VisibleIndex = 2;
+            // 
+            // gridColumn3
+            // 
+            this.gridColumn3.FieldName = "time_calculation";
+            this.gridColumn3.Name = "gridColumn3";
+            this.gridColumn3.OptionsColumn.AllowEdit = false;
+            this.gridColumn3.OptionsColumn.ShowInExpressionEditor = false;
+            this.gridColumn3.OptionsEditForm.UseEditorColRowSpan = false;
+            this.gridColumn3.Visible = true;
+            this.gridColumn3.VisibleIndex = 3;
+            // 
+            // gridColumn4
+            // 
+            this.gridColumn4.FieldName = "host_name";
+            this.gridColumn4.Name = "gridColumn4";
+            this.gridColumn4.OptionsColumn.AllowEdit = false;
+            this.gridColumn4.OptionsColumn.ShowInExpressionEditor = false;
+            this.gridColumn4.OptionsEditForm.UseEditorColRowSpan = false;
+            this.gridColumn4.Visible = true;
+            this.gridColumn4.VisibleIndex = 5;
+      
             // 
             // tableLayoutPanel1
             // 
@@ -337,23 +333,16 @@ namespace Calculator.Win
         private System.Windows.Forms.ToolStripMenuItem создатьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem изменитьToolStripMenuItem;
-        private DevExpress.XtraGrid.Columns.GridColumn colId;
-        private DevExpress.XtraGrid.Columns.GridColumn colCondition;
-        private DevExpress.XtraGrid.Columns.GridColumn colResult;
-        private DevExpress.XtraGrid.Columns.GridColumn colError;
-        private DevExpress.XtraGrid.Columns.GridColumn coltime_calculation;
-        private DevExpress.XtraGrid.Columns.GridColumn colLogin;
-        private DevExpress.XtraGrid.Columns.GridColumn colhost_name;
         private CalculatorHistoryDataSet calculatorHistoryDataSet;
         private System.Windows.Forms.BindingSource calcLogBindingSource;
         private CalculatorHistoryDataSetTableAdapters.CalcLogTableAdapter calcLogTableAdapter;
-        private DevExpress.XtraGrid.Columns.GridColumn colId1;
-        private DevExpress.XtraGrid.Columns.GridColumn colCondition1;
-        private DevExpress.XtraGrid.Columns.GridColumn colResult1;
-        private DevExpress.XtraGrid.Columns.GridColumn colError1;
-        private DevExpress.XtraGrid.Columns.GridColumn coltime_calculation1;
-        private DevExpress.XtraGrid.Columns.GridColumn colLogin1;
-        private DevExpress.XtraGrid.Columns.GridColumn colhost_name1;
+        private DevExpress.XtraGrid.Columns.GridColumn colId;
+        private DevExpress.XtraGrid.Columns.GridColumn colCondition;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
+        private DevExpress.XtraGrid.Columns.GridColumn colLogin;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
     }
 }
 
