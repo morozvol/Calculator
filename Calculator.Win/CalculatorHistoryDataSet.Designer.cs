@@ -34,12 +34,6 @@ namespace Calculator.Win {
         
         private GetRecordDataTable tableGetRecord;
         
-        private global::System.Data.DataRelation relationCalcLog_CalcTracing;
-        
-        private global::System.Data.DataRelation relationCalcTracing_Operations;
-        
-        private global::System.Data.DataRelation relationCalcLog_Users;
-        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -296,9 +290,6 @@ namespace Calculator.Win {
                     this.tableGetRecord.InitVars();
                 }
             }
-            this.relationCalcLog_CalcTracing = this.Relations["CalcLog_CalcTracing"];
-            this.relationCalcTracing_Operations = this.Relations["CalcTracing_Operations"];
-            this.relationCalcLog_Users = this.Relations["CalcLog_Users"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -319,18 +310,6 @@ namespace Calculator.Win {
             base.Tables.Add(this.tableUsers);
             this.tableGetRecord = new GetRecordDataTable();
             base.Tables.Add(this.tableGetRecord);
-            this.relationCalcLog_CalcTracing = new global::System.Data.DataRelation("CalcLog_CalcTracing", new global::System.Data.DataColumn[] {
-                        this.tableCalcLog.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableCalcTracing.Id_conditionColumn}, false);
-            this.Relations.Add(this.relationCalcLog_CalcTracing);
-            this.relationCalcTracing_Operations = new global::System.Data.DataRelation("CalcTracing_Operations", new global::System.Data.DataColumn[] {
-                        this.tableCalcTracing.operationsColumn}, new global::System.Data.DataColumn[] {
-                        this.tableOperations.operationsColumn}, false);
-            this.Relations.Add(this.relationCalcTracing_Operations);
-            this.relationCalcLog_Users = new global::System.Data.DataRelation("CalcLog_Users", new global::System.Data.DataColumn[] {
-                        this.tableCalcLog.LoginColumn}, new global::System.Data.DataColumn[] {
-                        this.tableUsers.LoginColumn}, false);
-            this.Relations.Add(this.relationCalcLog_Users);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -806,6 +785,8 @@ namespace Calculator.Win {
             
             private global::System.Data.DataColumn columnerror;
             
+            private global::System.Data.DataColumn columnid;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public CalcTracingDataTable() {
@@ -889,6 +870,14 @@ namespace Calculator.Win {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn idColumn {
+                get {
+                    return this.columnid;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -924,15 +913,16 @@ namespace Calculator.Win {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public CalcTracingRow AddCalcTracingRow(double operand_1, double operand_2, string operations, double result, string error) {
+            public CalcTracingRow AddCalcTracingRow(int Id_condition, double operand_1, double operand_2, string operations, double result, string error) {
                 CalcTracingRow rowCalcTracingRow = ((CalcTracingRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        null,
+                        Id_condition,
                         operand_1,
                         operand_2,
                         operations,
                         result,
-                        error};
+                        error,
+                        null};
                 rowCalcTracingRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowCalcTracingRow);
                 return rowCalcTracingRow;
@@ -940,9 +930,9 @@ namespace Calculator.Win {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public CalcTracingRow FindById_condition(int Id_condition) {
+            public CalcTracingRow FindByid(int id) {
                 return ((CalcTracingRow)(this.Rows.Find(new object[] {
-                            Id_condition})));
+                            id})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -968,6 +958,7 @@ namespace Calculator.Win {
                 this.columnoperations = base.Columns["operations"];
                 this.columnresult = base.Columns["result"];
                 this.columnerror = base.Columns["error"];
+                this.columnid = base.Columns["id"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -985,19 +976,22 @@ namespace Calculator.Win {
                 base.Columns.Add(this.columnresult);
                 this.columnerror = new global::System.Data.DataColumn("error", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnerror);
+                this.columnid = new global::System.Data.DataColumn("id", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnid);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnId_condition}, true));
-                this.columnId_condition.AutoIncrement = true;
-                this.columnId_condition.AutoIncrementSeed = -1;
-                this.columnId_condition.AutoIncrementStep = -1;
+                                this.columnid}, true));
                 this.columnId_condition.AllowDBNull = false;
-                this.columnId_condition.ReadOnly = true;
-                this.columnId_condition.Unique = true;
                 this.columnoperand_1.AllowDBNull = false;
                 this.columnoperand_2.AllowDBNull = false;
                 this.columnoperations.AllowDBNull = false;
                 this.columnoperations.MaxLength = 2;
                 this.columnerror.MaxLength = 256;
+                this.columnid.AutoIncrement = true;
+                this.columnid.AutoIncrementSeed = -1;
+                this.columnid.AutoIncrementStep = -1;
+                this.columnid.AllowDBNull = false;
+                this.columnid.ReadOnly = true;
+                this.columnid.Unique = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1221,17 +1215,21 @@ namespace Calculator.Win {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public OperationsRow AddOperationsRow(CalcTracingRow parentCalcTracingRowByCalcTracing_Operations) {
+            public OperationsRow AddOperationsRow(string operations) {
                 OperationsRow rowOperationsRow = ((OperationsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        null};
-                if ((parentCalcTracingRowByCalcTracing_Operations != null)) {
-                    columnValuesArray[1] = parentCalcTracingRowByCalcTracing_Operations[3];
-                }
+                        operations};
                 rowOperationsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowOperationsRow);
                 return rowOperationsRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public OperationsRow FindById(int Id) {
+                return ((OperationsRow)(this.Rows.Find(new object[] {
+                            Id})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1262,15 +1260,15 @@ namespace Calculator.Win {
                 base.Columns.Add(this.columnId);
                 this.columnoperations = new global::System.Data.DataColumn("operations", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnoperations);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("OperationsKey1", new global::System.Data.DataColumn[] {
-                                this.columnoperations}, false));
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnId}, true));
                 this.columnId.AutoIncrement = true;
                 this.columnId.AutoIncrementSeed = -1;
                 this.columnId.AutoIncrementStep = -1;
                 this.columnId.AllowDBNull = false;
                 this.columnId.ReadOnly = true;
+                this.columnId.Unique = true;
                 this.columnoperations.AllowDBNull = false;
-                this.columnoperations.Unique = true;
                 this.columnoperations.MaxLength = 2;
             }
             
@@ -1495,17 +1493,21 @@ namespace Calculator.Win {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public UsersRow AddUsersRow(int Id, CalcLogRow parentCalcLogRowByCalcLog_Users) {
+            public UsersRow AddUsersRow(int Id, string Login) {
                 UsersRow rowUsersRow = ((UsersRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Id,
-                        null};
-                if ((parentCalcLogRowByCalcLog_Users != null)) {
-                    columnValuesArray[1] = parentCalcLogRowByCalcLog_Users[5];
-                }
+                        Login};
                 rowUsersRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowUsersRow);
                 return rowUsersRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public UsersRow FindById(int Id) {
+                return ((UsersRow)(this.Rows.Find(new object[] {
+                            Id})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1536,11 +1538,11 @@ namespace Calculator.Win {
                 base.Columns.Add(this.columnId);
                 this.columnLogin = new global::System.Data.DataColumn("Login", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnLogin);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("UsersKey1", new global::System.Data.DataColumn[] {
-                                this.columnLogin}, false));
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnId}, true));
                 this.columnId.AllowDBNull = false;
+                this.columnId.Unique = true;
                 this.columnLogin.AllowDBNull = false;
-                this.columnLogin.Unique = true;
                 this.columnLogin.MaxLength = 256;
             }
             
@@ -2144,28 +2146,6 @@ namespace Calculator.Win {
             public void SetErrorNull() {
                 this[this.tableCalcLog.ErrorColumn] = global::System.Convert.DBNull;
             }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public CalcTracingRow[] GetCalcTracingRows() {
-                if ((this.Table.ChildRelations["CalcLog_CalcTracing"] == null)) {
-                    return new CalcTracingRow[0];
-                }
-                else {
-                    return ((CalcTracingRow[])(base.GetChildRows(this.Table.ChildRelations["CalcLog_CalcTracing"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public UsersRow[] GetUsersRows() {
-                if ((this.Table.ChildRelations["CalcLog_Users"] == null)) {
-                    return new UsersRow[0];
-                }
-                else {
-                    return ((UsersRow[])(base.GetChildRows(this.Table.ChildRelations["CalcLog_Users"])));
-                }
-            }
         }
         
         /// <summary>
@@ -2260,12 +2240,12 @@ namespace Calculator.Win {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public CalcLogRow CalcLogRow {
+            public int id {
                 get {
-                    return ((CalcLogRow)(this.GetParentRow(this.Table.ParentRelations["CalcLog_CalcTracing"])));
+                    return ((int)(this[this.tableCalcTracing.idColumn]));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["CalcLog_CalcTracing"]);
+                    this[this.tableCalcTracing.idColumn] = value;
                 }
             }
             
@@ -2291,17 +2271,6 @@ namespace Calculator.Win {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SeterrorNull() {
                 this[this.tableCalcTracing.errorColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public OperationsRow[] GetOperationsRows() {
-                if ((this.Table.ChildRelations["CalcTracing_Operations"] == null)) {
-                    return new OperationsRow[0];
-                }
-                else {
-                    return ((OperationsRow[])(base.GetChildRows(this.Table.ChildRelations["CalcTracing_Operations"])));
-                }
             }
         }
         
@@ -2340,17 +2309,6 @@ namespace Calculator.Win {
                     this[this.tableOperations.operationsColumn] = value;
                 }
             }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public CalcTracingRow CalcTracingRow {
-                get {
-                    return ((CalcTracingRow)(this.GetParentRow(this.Table.ParentRelations["CalcTracing_Operations"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["CalcTracing_Operations"]);
-                }
-            }
         }
         
         /// <summary>
@@ -2386,17 +2344,6 @@ namespace Calculator.Win {
                 }
                 set {
                     this[this.tableUsers.LoginColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public CalcLogRow CalcLogRow {
-                get {
-                    return ((CalcLogRow)(this.GetParentRow(this.Table.ParentRelations["CalcLog_Users"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["CalcLog_Users"]);
                 }
             }
         }
@@ -3282,10 +3229,11 @@ SELECT Id, Condition, Result, Error, time_calculation, Login, host_name FROM Cal
             tableMapping.ColumnMappings.Add("operations", "operations");
             tableMapping.ColumnMappings.Add("result", "result");
             tableMapping.ColumnMappings.Add("error", "error");
+            tableMapping.ColumnMappings.Add("id", "id");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[CalcTracing] WHERE (([Id_condition] = @Original_Id_condition) AND ([operand_1] = @Original_operand_1) AND ([operand_2] = @Original_operand_2) AND ([operations] = @Original_operations) AND ((@IsNull_result = 1 AND [result] IS NULL) OR ([result] = @Original_result)) AND ((@IsNull_error = 1 AND [error] IS NULL) OR ([error] = @Original_error)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[CalcTracing] WHERE (([Id_condition] = @Original_Id_condition) AND ([operand_1] = @Original_operand_1) AND ([operand_2] = @Original_operand_2) AND ([operations] = @Original_operations) AND ((@IsNull_result = 1 AND [result] IS NULL) OR ([result] = @Original_result)) AND ((@IsNull_error = 1 AND [error] IS NULL) OR ([error] = @Original_error)) AND ([id] = @Original_id))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id_condition", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id_condition", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_operand_1", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "operand_1", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -3295,11 +3243,13 @@ SELECT Id, Condition, Result, Error, time_calculation, Login, host_name FROM Cal
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_result", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "result", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_error", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "error", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_error", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "error", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[CalcTracing] ([operand_1], [operand_2], [operations], [result], [error]) VALUES (@operand_1, @operand_2, @operations, @result, @error);
-SELECT Id_condition, operand_1, operand_2, operations, result, error FROM CalcTracing WHERE (Id_condition = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[CalcTracing] ([Id_condition], [operand_1], [operand_2], [operations], [result], [error]) VALUES (@Id_condition, @operand_1, @operand_2, @operations, @result, @error);
+SELECT Id_condition, operand_1, operand_2, operations, result, error, id FROM CalcTracing WHERE (id = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id_condition", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id_condition", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@operand_1", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "operand_1", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@operand_2", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "operand_2", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@operations", global::System.Data.SqlDbType.Char, 0, global::System.Data.ParameterDirection.Input, 0, 0, "operations", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -3307,9 +3257,10 @@ SELECT Id_condition, operand_1, operand_2, operations, result, error FROM CalcTr
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@error", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "error", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[CalcTracing] SET [operand_1] = @operand_1, [operand_2] = @operand_2, [operations] = @operations, [result] = @result, [error] = @error WHERE (([Id_condition] = @Original_Id_condition) AND ([operand_1] = @Original_operand_1) AND ([operand_2] = @Original_operand_2) AND ([operations] = @Original_operations) AND ((@IsNull_result = 1 AND [result] IS NULL) OR ([result] = @Original_result)) AND ((@IsNull_error = 1 AND [error] IS NULL) OR ([error] = @Original_error)));
-SELECT Id_condition, operand_1, operand_2, operations, result, error FROM CalcTracing WHERE (Id_condition = @Id_condition)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[CalcTracing] SET [Id_condition] = @Id_condition, [operand_1] = @operand_1, [operand_2] = @operand_2, [operations] = @operations, [result] = @result, [error] = @error WHERE (([Id_condition] = @Original_Id_condition) AND ([operand_1] = @Original_operand_1) AND ([operand_2] = @Original_operand_2) AND ([operations] = @Original_operations) AND ((@IsNull_result = 1 AND [result] IS NULL) OR ([result] = @Original_result)) AND ((@IsNull_error = 1 AND [error] IS NULL) OR ([error] = @Original_error)) AND ([id] = @Original_id));
+SELECT Id_condition, operand_1, operand_2, operations, result, error, id FROM CalcTracing WHERE (id = @id)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id_condition", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id_condition", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@operand_1", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "operand_1", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@operand_2", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "operand_2", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@operations", global::System.Data.SqlDbType.Char, 0, global::System.Data.ParameterDirection.Input, 0, 0, "operations", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -3323,7 +3274,8 @@ SELECT Id_condition, operand_1, operand_2, operations, result, error FROM CalcTr
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_result", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "result", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_error", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "error", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_error", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "error", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id_condition", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id_condition", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3339,8 +3291,8 @@ SELECT Id_condition, operand_1, operand_2, operations, result, error FROM CalcTr
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT Id_condition, operand_1, operand_2, operations, result, error FROM dbo.Cal" +
-                "cTracing";
+            this._commandCollection[0].CommandText = "SELECT Id_condition, operand_1, operand_2, operations, result, error, id FROM dbo" +
+                ".CalcTracing";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -3401,7 +3353,7 @@ SELECT Id_condition, operand_1, operand_2, operations, result, error FROM CalcTr
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_Id_condition, double Original_operand_1, double Original_operand_2, string Original_operations, global::System.Nullable<double> Original_result, string Original_error) {
+        public virtual int Delete(int Original_Id_condition, double Original_operand_1, double Original_operand_2, string Original_operations, global::System.Nullable<double> Original_result, string Original_error, int Original_id) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Id_condition));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((double)(Original_operand_1));
             this.Adapter.DeleteCommand.Parameters[2].Value = ((double)(Original_operand_2));
@@ -3427,6 +3379,7 @@ SELECT Id_condition, operand_1, operand_2, operations, result, error FROM CalcTr
                 this.Adapter.DeleteCommand.Parameters[6].Value = ((object)(0));
                 this.Adapter.DeleteCommand.Parameters[7].Value = ((string)(Original_error));
             }
+            this.Adapter.DeleteCommand.Parameters[8].Value = ((int)(Original_id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -3447,26 +3400,27 @@ SELECT Id_condition, operand_1, operand_2, operations, result, error FROM CalcTr
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(double operand_1, double operand_2, string operations, global::System.Nullable<double> result, string error) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((double)(operand_1));
-            this.Adapter.InsertCommand.Parameters[1].Value = ((double)(operand_2));
+        public virtual int Insert(int Id_condition, double operand_1, double operand_2, string operations, global::System.Nullable<double> result, string error) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(Id_condition));
+            this.Adapter.InsertCommand.Parameters[1].Value = ((double)(operand_1));
+            this.Adapter.InsertCommand.Parameters[2].Value = ((double)(operand_2));
             if ((operations == null)) {
                 throw new global::System.ArgumentNullException("operations");
             }
             else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(operations));
+                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(operations));
             }
             if ((result.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((double)(result.Value));
+                this.Adapter.InsertCommand.Parameters[4].Value = ((double)(result.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            if ((error == null)) {
                 this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
+            if ((error == null)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
             else {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(error));
+                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(error));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -3488,53 +3442,55 @@ SELECT Id_condition, operand_1, operand_2, operations, result, error FROM CalcTr
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(double operand_1, double operand_2, string operations, global::System.Nullable<double> result, string error, int Original_Id_condition, double Original_operand_1, double Original_operand_2, string Original_operations, global::System.Nullable<double> Original_result, string Original_error, int Id_condition) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((double)(operand_1));
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((double)(operand_2));
+        public virtual int Update(int Id_condition, double operand_1, double operand_2, string operations, global::System.Nullable<double> result, string error, int Original_Id_condition, double Original_operand_1, double Original_operand_2, string Original_operations, global::System.Nullable<double> Original_result, string Original_error, int Original_id, int id) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(Id_condition));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((double)(operand_1));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((double)(operand_2));
             if ((operations == null)) {
                 throw new global::System.ArgumentNullException("operations");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(operations));
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(operations));
             }
             if ((result.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((double)(result.Value));
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((double)(result.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            if ((error == null)) {
                 this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(error));
+            if ((error == null)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_Id_condition));
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((double)(Original_operand_1));
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((double)(Original_operand_2));
+            else {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(error));
+            }
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_Id_condition));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((double)(Original_operand_1));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((double)(Original_operand_2));
             if ((Original_operations == null)) {
                 throw new global::System.ArgumentNullException("Original_operations");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(Original_operations));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(Original_operations));
             }
             if ((Original_result.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((double)(Original_result.Value));
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((double)(Original_result.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
             }
             if ((Original_error == null)) {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(Original_error));
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((string)(Original_error));
             }
-            this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(Id_condition));
+            this.Adapter.UpdateCommand.Parameters[14].Value = ((int)(Original_id));
+            this.Adapter.UpdateCommand.Parameters[15].Value = ((int)(id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -3555,8 +3511,8 @@ SELECT Id_condition, operand_1, operand_2, operations, result, error FROM CalcTr
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(double operand_1, double operand_2, string operations, global::System.Nullable<double> result, string error, int Original_Id_condition, double Original_operand_1, double Original_operand_2, string Original_operations, global::System.Nullable<double> Original_result, string Original_error) {
-            return this.Update(operand_1, operand_2, operations, result, error, Original_Id_condition, Original_operand_1, Original_operand_2, Original_operations, Original_result, Original_error, Original_Id_condition);
+        public virtual int Update(int Id_condition, double operand_1, double operand_2, string operations, global::System.Nullable<double> result, string error, int Original_Id_condition, double Original_operand_1, double Original_operand_2, string Original_operations, global::System.Nullable<double> Original_result, string Original_error, int Original_id) {
+            return this.Update(Id_condition, operand_1, operand_2, operations, result, error, Original_Id_condition, Original_operand_1, Original_operand_2, Original_operations, Original_result, Original_error, Original_id, Original_id);
         }
     }
     
@@ -3867,6 +3823,14 @@ SELECT Id_condition, operand_1, operand_2, operations, result, error FROM CalcTr
                     this.Adapter.UpdateCommand.Connection.Close();
                 }
             }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(string operations, int Original_Id, string Original_operations) {
+            return this.Update(operations, Original_Id, Original_operations, Original_Id);
         }
     }
     
@@ -4180,6 +4144,14 @@ SELECT Id_condition, operand_1, operand_2, operations, result, error FROM CalcTr
                 }
             }
         }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(string Login, int Original_Id, string Original_Login) {
+            return this.Update(Original_Id, Login, Original_Id, Original_Login);
+        }
     }
     
     /// <summary>
@@ -4396,7 +4368,7 @@ SELECT Id_condition, operand_1, operand_2, operations, result, error FROM CalcTr
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.IDbCommand[3];
+            this._commandCollection = new global::System.Data.IDbCommand[5];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Connection = new global::System.Data.SqlClient.SqlConnection(global::Calculator.Win.Properties.Settings.Default.CalculatorHistoryConnectionString);
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).CommandText = "dbo.AddRecord";
@@ -4410,22 +4382,37 @@ SELECT Id_condition, operand_1, operand_2, operations, result, error FROM CalcTr
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@host_name", global::System.Data.SqlDbType.NVarChar, 256, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Connection = new global::System.Data.SqlClient.SqlConnection(global::Calculator.Win.Properties.Settings.Default.CalculatorHistoryConnectionString);
-            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).CommandText = "dbo.[Delete]";
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).CommandText = "dbo.AddTracing";
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).CommandType = global::System.Data.CommandType.StoredProcedure;
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@operand_1", global::System.Data.SqlDbType.Float, 8, global::System.Data.ParameterDirection.Input, 53, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@operand_2", global::System.Data.SqlDbType.Float, 8, global::System.Data.ParameterDirection.Input, 53, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@result", global::System.Data.SqlDbType.Float, 8, global::System.Data.ParameterDirection.Input, 53, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@error", global::System.Data.SqlDbType.NVarChar, 256, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@operation", global::System.Data.SqlDbType.Char, 2, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).Connection = new global::System.Data.SqlClient.SqlConnection(global::Calculator.Win.Properties.Settings.Default.CalculatorHistoryConnectionString);
-            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).CommandText = "dbo.[Update]";
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).CommandText = "dbo.CreateTempTrace";
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).CommandType = global::System.Data.CommandType.StoredProcedure;
             ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@condition", global::System.Data.SqlDbType.NVarChar, 256, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@result", global::System.Data.SqlDbType.Float, 8, global::System.Data.ParameterDirection.Input, 53, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@error", global::System.Data.SqlDbType.NVarChar, 256, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@date_time", global::System.Data.SqlDbType.DateTime, 8, global::System.Data.ParameterDirection.Input, 23, 3, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@login", global::System.Data.SqlDbType.NVarChar, 256, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@host_name", global::System.Data.SqlDbType.NVarChar, 256, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[3])).Connection = new global::System.Data.SqlClient.SqlConnection(global::Calculator.Win.Properties.Settings.Default.CalculatorHistoryConnectionString);
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[3])).CommandText = "dbo.[Delete]";
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[3])).CommandType = global::System.Data.CommandType.StoredProcedure;
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[3])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[3])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[4])).Connection = new global::System.Data.SqlClient.SqlConnection(global::Calculator.Win.Properties.Settings.Default.CalculatorHistoryConnectionString);
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[4])).CommandText = "dbo.[Update]";
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[4])).CommandType = global::System.Data.CommandType.StoredProcedure;
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[4])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[4])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[4])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@condition", global::System.Data.SqlDbType.NVarChar, 256, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[4])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@result", global::System.Data.SqlDbType.Float, 8, global::System.Data.ParameterDirection.Input, 53, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[4])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@error", global::System.Data.SqlDbType.NVarChar, 256, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[4])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@date_time", global::System.Data.SqlDbType.DateTime, 8, global::System.Data.ParameterDirection.Input, 23, 3, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[4])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@login", global::System.Data.SqlDbType.NVarChar, 256, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((global::System.Data.SqlClient.SqlCommand)(this._commandCollection[4])).Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@host_name", global::System.Data.SqlDbType.NVarChar, 256, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4489,8 +4476,82 @@ SELECT Id_condition, operand_1, operand_2, operations, result, error FROM CalcTr
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Delete1(global::System.Nullable<int> id) {
+        public virtual int AddTracing(global::System.Nullable<double> operand_1, global::System.Nullable<double> operand_2, global::System.Nullable<double> result, string error, string operation) {
             global::System.Data.SqlClient.SqlCommand command = ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[1]));
+            if ((operand_1.HasValue == true)) {
+                command.Parameters[1].Value = ((double)(operand_1.Value));
+            }
+            else {
+                command.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((operand_2.HasValue == true)) {
+                command.Parameters[2].Value = ((double)(operand_2.Value));
+            }
+            else {
+                command.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((result.HasValue == true)) {
+                command.Parameters[3].Value = ((double)(result.Value));
+            }
+            else {
+                command.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((error == null)) {
+                command.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[4].Value = ((string)(error));
+            }
+            if ((operation == null)) {
+                command.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[5].Value = ((string)(operation));
+            }
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            int returnValue;
+            try {
+                returnValue = command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int CreateTempTrace() {
+            global::System.Data.SqlClient.SqlCommand command = ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[2]));
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            int returnValue;
+            try {
+                returnValue = command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Delete1(global::System.Nullable<int> id) {
+            global::System.Data.SqlClient.SqlCommand command = ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[3]));
             if ((id.HasValue == true)) {
                 command.Parameters[1].Value = ((int)(id.Value));
             }
@@ -4518,7 +4579,7 @@ SELECT Id_condition, operand_1, operand_2, operations, result, error FROM CalcTr
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual int Update1(global::System.Nullable<int> id, string condition, global::System.Nullable<double> result, string error, global::System.Nullable<global::System.DateTime> date_time, string login, string host_name) {
-            global::System.Data.SqlClient.SqlCommand command = ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[2]));
+            global::System.Data.SqlClient.SqlCommand command = ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[4]));
             if ((id.HasValue == true)) {
                 command.Parameters[1].Value = ((int)(id.Value));
             }

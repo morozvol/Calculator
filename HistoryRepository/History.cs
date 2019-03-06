@@ -2,7 +2,6 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
-using System.IO;
 using Calculator.Core;
 
 
@@ -21,47 +20,63 @@ namespace Calculator.HistoryRepository
 
         public void AddRecord(string condition, Tracing tracing)
         {
-            using (SqlCommand AddTracimgInTempTaeble = new SqlCommand("AddTracing", Connection))
+            using (SqlCommand CreateTempTrace = new SqlCommand("CreateTempTrace", Connection))
             {
-                var operand_1 = new SqlParameter("@operand_1", SqlDbType.Float);
-                AddTracimgInTempTaeble.Parameters.Add(operand_1);
+                CreateTempTrace.CommandType = CommandType.StoredProcedure;
+                CreateTempTrace.ExecuteNonQuery();
 
-                var operand_2 = new SqlParameter("@operand_2", SqlDbType.Float);
-                AddTracimgInTempTaeble.Parameters.Add(operand_2);
-
-                foreach (var operation in tracing.list)
+                using (SqlCommand AddTracimgInTempTaeble = new SqlCommand("AddTracing", Connection))
                 {
-                    AddTracimgInTempTaeble.Parameters.Add("@operand_1", SqlDbType.Float).Value = operation.Number1;
-                    AddTracimgInTempTaeble.Parameters.Add("@operand_2", SqlDbType.Float).Value = operation.Number2;
-                    AddTracimgInTempTaeble.Parameters.Add("@result", SqlDbType.Float).Value = operation.Result;
-                    AddTracimgInTempTaeble.Parameters.Add("@operation", SqlDbType.Char).Value = operation.Options;
-                    AddTracimgInTempTaeble.Parameters.Add("@error", SqlDbType.NVarChar).Value =
-                        operation.Error == null ? DBNull.Value : (object) operation.Error; 
+                    var operand1 = new SqlParameter("@operand_1", SqlDbType.Float);
+                    AddTracimgInTempTaeble.Parameters.Add(operand1);
 
-                    AddTracimgInTempTaeble.CommandType = CommandType.StoredProcedure;
-                    AddTracimgInTempTaeble.ExecuteScalar();
+                    var operand2 = new SqlParameter("@operand_2", SqlDbType.Float);
+                    AddTracimgInTempTaeble.Parameters.Add(operand2);
+
+                    var result = new SqlParameter("@result", SqlDbType.Float);
+                    AddTracimgInTempTaeble.Parameters.Add(result);
+
+                    var operation = new SqlParameter("@operation", SqlDbType.Char);
+                    AddTracimgInTempTaeble.Parameters.Add(operation);
+
+                    var error = new SqlParameter("@error", SqlDbType.NVarChar);
+                    AddTracimgInTempTaeble.Parameters.Add(error);
+
+                    foreach (var operat in tracing.list)
+                    {
+                        operand1.Value = operat.Number1;
+                        operand2.Value = operat.Number2;
+                        result.Value = operat.Result;
+                        operation.Value = operat.Options;
+                        error.Value = operat.Error == null ? DBNull.Value : (object) operat.Error;
+
+
+                        AddTracimgInTempTaeble.CommandType = CommandType.StoredProcedure;
+                        AddTracimgInTempTaeble.ExecuteNonQuery();
+                    }
                 }
-            }
 
-            using (SqlCommand cmd = new SqlCommand("AddRecord", Connection))
-            {
-                cmd.Parameters.Add("@condition", SqlDbType.NVarChar).Value = condition;
-                cmd.Parameters.Add("@result", SqlDbType.Float).Value =
-                    tracing.Result == null ? DBNull.Value : (object) tracing.Result;
-                cmd.Parameters.Add("@error", SqlDbType.NVarChar).Value =
-                    tracing.Error == null ? DBNull.Value : (object) tracing.Error;
-                cmd.Parameters.Add("@login", SqlDbType.NVarChar).Value =
-                    System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-                cmd.Parameters.Add("@host_name", SqlDbType.NVarChar).Value = Environment.MachineName;
-                cmd.Parameters.Add("@date_time", SqlDbType.DateTime).Value = DateTime.Now;
-                cmd.CommandType = CommandType.StoredProcedure;
+                using (SqlCommand cmd = new SqlCommand("AddRecord", Connection))
+                {
+                    cmd.Parameters.Add("@condition", SqlDbType.NVarChar).Value = condition;
+                    cmd.Parameters.Add("@result", SqlDbType.Float).Value =
+                        tracing.Result == null ? DBNull.Value : (object) tracing.Result;
+                    cmd.Parameters.Add("@error", SqlDbType.NVarChar).Value =
+                        tracing.Error == null ? DBNull.Value : (object) tracing.Error;
+                    cmd.Parameters.Add("@login", SqlDbType.NVarChar).Value =
+                        System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+                    cmd.Parameters.Add("@host_name", SqlDbType.NVarChar).Value = Environment.MachineName;
+                    cmd.Parameters.Add("@date_time", SqlDbType.DateTime).Value = DateTime.Now;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
 
         public void AddRecord(Record record)
         {
             if (record != null)
-                using (SqlCommand cmd = new SqlCommand("AddRecord", Connection))
+                using (SqlCommand cmd = new SqlCommand("CreateNewRecord", Connection))
                 {
                     cmd.Parameters.Add("@condition", SqlDbType.NVarChar).Value = record.Task;
                     cmd.Parameters.Add("@result", SqlDbType.Float).Value =

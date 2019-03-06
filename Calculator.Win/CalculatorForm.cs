@@ -24,10 +24,10 @@ namespace Calculator.Win
             _culture = CultureInfo.GetCultureInfo("ru-RU");
 
             Core.Calculator calculator = new Core.Calculator(txtTask.Text, _culture, txtTask.Text);
-           
-                var result = calculator.CalculateExpression();
-                 _history.AddRecord(txtTask.Text, result);
-         
+
+            var result = calculator.CalculateExpression();
+            _history.AddRecord(txtTask.Text, result);
+
             calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
             txtTask.Text = String.Empty;
         }
@@ -39,8 +39,8 @@ namespace Calculator.Win
 
         private void CalculatorForm_Load(object sender, EventArgs e)
         {
-  
-               calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
+          
+             calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
         }
 
 
@@ -55,7 +55,7 @@ namespace Calculator.Win
                 MessageBoxOptions.DefaultDesktopOnly);
             if (res == DialogResult.Yes)
             {
-                var id = (int) gridView2.GetRowCellValue(gridView2.FocusedRowHandle, "Id");
+                var id = (int) gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "Id");
                 _history.DeleteRecord(id);
                 calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
             }
@@ -63,7 +63,7 @@ namespace Calculator.Win
 
         private void EditRow(object sender, EventArgs e)
         {
-            var Value = (int) gridView2.GetRowCellValue(gridView2.FocusedRowHandle, "Id");
+            var Value = (int) gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "Id");
             AddOrEditDialog dialog = new AddOrEditDialog(_history.GetRecord(Value, _culture));
             dialog.Text = "Редактирование";
             dialog.ShowDialog();
