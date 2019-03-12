@@ -48,6 +48,7 @@ namespace Calculator.Core
                 }
             }
         }
+      
 
         private bool IsSimple()
         {
@@ -72,6 +73,7 @@ namespace Calculator.Core
             
               var result =  Simplify( ref tracing);
               tracing.Result = result == "Error" ? null : (double?)Double.Parse(result);
+              
               return tracing;
         }
 
@@ -99,6 +101,7 @@ namespace Calculator.Core
                 }
 
                 var main = Operation.ChooseMainOperation(operations);
+               
                 tracing.list.Add(main);
                 main.Calculate();
                 ChangeCondition(main);
@@ -110,7 +113,7 @@ namespace Calculator.Core
         private void ChangeCondition(Operation op)
         {
         
-            Condition = Condition.Replace(String.Format("{0}{1}{2}", op.Number1, op.Options, op.Number2, Culture), op.Result.ToString(Culture));
+            Condition = Condition.Replace(String.Format("{0}{1}{2}", op.Number1, op.Options=="-" ? "~" : op.Options, op.Number2, Culture), op.Result.ToString(Culture));
         }
 
         private Bracket FindTheActionIBrackets(ref Tracing tracing)

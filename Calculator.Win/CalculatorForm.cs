@@ -29,18 +29,13 @@ namespace Calculator.Win
             _history.AddRecord(txtTask.Text, result);
 
             calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
-            txtTask.Text = String.Empty;
-        }
 
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
 
+          txtTask.Text = String.Empty;
+        }
         private void CalculatorForm_Load(object sender, EventArgs e)
         {
-          
-             calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
+            calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
         }
 
 
@@ -55,15 +50,15 @@ namespace Calculator.Win
                 MessageBoxOptions.DefaultDesktopOnly);
             if (res == DialogResult.Yes)
             {
-                var id = (int) gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "Id");
+                var id = (int) gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "id");
                 _history.DeleteRecord(id);
-                calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
+               calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
             }
         }
 
         private void EditRow(object sender, EventArgs e)
         {
-            var Value = (int) gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "Id");
+            var Value = (int)gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "id");
             AddOrEditDialog dialog = new AddOrEditDialog(_history.GetRecord(Value, _culture));
             dialog.Text = "Редактирование";
             dialog.ShowDialog();
@@ -83,6 +78,12 @@ namespace Calculator.Win
             dialog.ShowDialog();
             _history.AddRecord(dialog.GetResult());
             calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
+        }
+
+        public void gridView_Click(object sender, EventArgs e)
+        {
+            var id = (int)gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "id");
+            _history.GetTracing(id);
         }
     }
 }
