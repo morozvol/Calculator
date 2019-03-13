@@ -28,16 +28,18 @@ namespace Calculator.Win
             var result = calculator.CalculateExpression();
             _history.AddRecord(txtTask.Text, result);
 
-            calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
+           calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
 
 
           txtTask.Text = String.Empty;
         }
+
         private void CalculatorForm_Load(object sender, EventArgs e)
         {
-            calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
-        }
 
+            calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
+
+        }
 
         private void DeleteRow(object sender, EventArgs e)
         {
@@ -50,7 +52,7 @@ namespace Calculator.Win
                 MessageBoxOptions.DefaultDesktopOnly);
             if (res == DialogResult.Yes)
             {
-                var id = (int) gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "id");
+                var id = (int) gvCalcLog.GetRowCellValue(gvCalcLog.FocusedRowHandle, "id");
                 _history.DeleteRecord(id);
                calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
             }
@@ -58,7 +60,7 @@ namespace Calculator.Win
 
         private void EditRow(object sender, EventArgs e)
         {
-            var Value = (int)gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "id");
+            var Value = (int)gvCalcLog.GetRowCellValue(gvCalcLog.FocusedRowHandle, "id");
             AddOrEditDialog dialog = new AddOrEditDialog(_history.GetRecord(Value, _culture));
             dialog.Text = "Редактирование";
             dialog.ShowDialog();
@@ -73,17 +75,21 @@ namespace Calculator.Win
 
         private void AddRow(object sender, EventArgs e)
         {
-            AddOrEditDialog dialog = new AddOrEditDialog(null);
-            dialog.Text = "Создание";
-            dialog.ShowDialog();
-            _history.AddRecord(dialog.GetResult());
-            calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
+            using (AddOrEditDialog dialog = new AddOrEditDialog(null))
+            {
+                dialog.Text = "Создание";
+                dialog.ShowDialog();
+
+                //_history.AddRecord(dialog.GetResult());
+                calcLogTableAdapter.Fill(calculatorHistoryDataSet.CalcLog);
+            }
         }
 
-        public void gridView_Click(object sender, EventArgs e)
+        private void gvCalcLog_SelectionChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowObjectChangedEventArgs e)
         {
-            var id = (int)gridView1.GetRowCellValue(gridView1.FocusedRowHandle, "id");
-            _history.GetTracing(id);
+            var id = (int)gvCalcLog.GetRowCellValue(gvCalcLog.FocusedRowHandle, "id");
+            var table = _history.GetTracing(id);
+            gcCalcTracing.DataSource = table;
         }
     }
 }

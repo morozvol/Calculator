@@ -26,9 +26,7 @@ namespace Calculator.Win {
         
         private CalcLogDataTable tableCalcLog;
         
-        private CalcTracingDataTable tableCalcTracing;
-        
-        private global::System.Data.DataRelation relationFK_CalcTracing_To_CalcLog;
+        private CalcTracingRecordGetDataTable tableCalcTracingRecordGet;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -61,8 +59,8 @@ namespace Calculator.Win {
                 if ((ds.Tables["CalcLog"] != null)) {
                     base.Tables.Add(new CalcLogDataTable(ds.Tables["CalcLog"]));
                 }
-                if ((ds.Tables["CalcTracing"] != null)) {
-                    base.Tables.Add(new CalcTracingDataTable(ds.Tables["CalcTracing"]));
+                if ((ds.Tables["CalcTracingRecordGet"] != null)) {
+                    base.Tables.Add(new CalcTracingRecordGetDataTable(ds.Tables["CalcTracingRecordGet"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -96,9 +94,9 @@ namespace Calculator.Win {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public CalcTracingDataTable CalcTracing {
+        public CalcTracingRecordGetDataTable CalcTracingRecordGet {
             get {
-                return this.tableCalcTracing;
+                return this.tableCalcTracingRecordGet;
             }
         }
         
@@ -172,8 +170,8 @@ namespace Calculator.Win {
                 if ((ds.Tables["CalcLog"] != null)) {
                     base.Tables.Add(new CalcLogDataTable(ds.Tables["CalcLog"]));
                 }
-                if ((ds.Tables["CalcTracing"] != null)) {
-                    base.Tables.Add(new CalcTracingDataTable(ds.Tables["CalcTracing"]));
+                if ((ds.Tables["CalcTracingRecordGet"] != null)) {
+                    base.Tables.Add(new CalcTracingRecordGetDataTable(ds.Tables["CalcTracingRecordGet"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -214,13 +212,12 @@ namespace Calculator.Win {
                     this.tableCalcLog.InitVars();
                 }
             }
-            this.tableCalcTracing = ((CalcTracingDataTable)(base.Tables["CalcTracing"]));
+            this.tableCalcTracingRecordGet = ((CalcTracingRecordGetDataTable)(base.Tables["CalcTracingRecordGet"]));
             if ((initTable == true)) {
-                if ((this.tableCalcTracing != null)) {
-                    this.tableCalcTracing.InitVars();
+                if ((this.tableCalcTracingRecordGet != null)) {
+                    this.tableCalcTracingRecordGet.InitVars();
                 }
             }
-            this.relationFK_CalcTracing_To_CalcLog = this.Relations["FK_CalcTracing_To_CalcLog"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -233,12 +230,8 @@ namespace Calculator.Win {
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableCalcLog = new CalcLogDataTable();
             base.Tables.Add(this.tableCalcLog);
-            this.tableCalcTracing = new CalcTracingDataTable();
-            base.Tables.Add(this.tableCalcTracing);
-            this.relationFK_CalcTracing_To_CalcLog = new global::System.Data.DataRelation("FK_CalcTracing_To_CalcLog", new global::System.Data.DataColumn[] {
-                        this.tableCalcLog.idColumn}, new global::System.Data.DataColumn[] {
-                        this.tableCalcTracing.id_conditionColumn}, false);
-            this.Relations.Add(this.relationFK_CalcTracing_To_CalcLog);
+            this.tableCalcTracingRecordGet = new CalcTracingRecordGetDataTable();
+            base.Tables.Add(this.tableCalcTracingRecordGet);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -249,7 +242,7 @@ namespace Calculator.Win {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        private bool ShouldSerializeCalcTracing() {
+        private bool ShouldSerializeCalcTracingRecordGet() {
             return false;
         }
         
@@ -312,7 +305,7 @@ namespace Calculator.Win {
         public delegate void CalcLogRowChangeEventHandler(object sender, CalcLogRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        public delegate void CalcTracingRowChangeEventHandler(object sender, CalcTracingRowChangeEvent e);
+        public delegate void CalcTracingRecordGetRowChangeEventHandler(object sender, CalcTracingRecordGetRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -673,26 +666,20 @@ namespace Calculator.Win {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class CalcTracingDataTable : global::System.Data.TypedTableBase<CalcTracingRow> {
-            
-            private global::System.Data.DataColumn columnid;
-            
-            private global::System.Data.DataColumn columnid_condition;
+        public partial class CalcTracingRecordGetDataTable : global::System.Data.TypedTableBase<CalcTracingRecordGetRow> {
             
             private global::System.Data.DataColumn columnoperand_1;
             
             private global::System.Data.DataColumn columnoperand_2;
             
-            private global::System.Data.DataColumn columnid_operations;
+            private global::System.Data.DataColumn columnoperator;
             
             private global::System.Data.DataColumn columnresult;
             
-            private global::System.Data.DataColumn columnerror;
-            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public CalcTracingDataTable() {
-                this.TableName = "CalcTracing";
+            public CalcTracingRecordGetDataTable() {
+                this.TableName = "CalcTracingRecordGet";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -700,7 +687,7 @@ namespace Calculator.Win {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            internal CalcTracingDataTable(global::System.Data.DataTable table) {
+            internal CalcTracingRecordGetDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -717,25 +704,9 @@ namespace Calculator.Win {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            protected CalcTracingDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected CalcTracingRecordGetDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn idColumn {
-                get {
-                    return this.columnid;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn id_conditionColumn {
-                get {
-                    return this.columnid_condition;
-                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -756,9 +727,9 @@ namespace Calculator.Win {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn id_operationsColumn {
+            public global::System.Data.DataColumn operatorColumn {
                 get {
-                    return this.columnid_operations;
+                    return this.columnoperator;
                 }
             }
             
@@ -767,14 +738,6 @@ namespace Calculator.Win {
             public global::System.Data.DataColumn resultColumn {
                 get {
                     return this.columnresult;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn errorColumn {
-                get {
-                    return this.columnerror;
                 }
             }
             
@@ -789,61 +752,48 @@ namespace Calculator.Win {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public CalcTracingRow this[int index] {
+            public CalcTracingRecordGetRow this[int index] {
                 get {
-                    return ((CalcTracingRow)(this.Rows[index]));
+                    return ((CalcTracingRecordGetRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public event CalcTracingRowChangeEventHandler CalcTracingRowChanging;
+            public event CalcTracingRecordGetRowChangeEventHandler CalcTracingRecordGetRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public event CalcTracingRowChangeEventHandler CalcTracingRowChanged;
+            public event CalcTracingRecordGetRowChangeEventHandler CalcTracingRecordGetRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public event CalcTracingRowChangeEventHandler CalcTracingRowDeleting;
+            public event CalcTracingRecordGetRowChangeEventHandler CalcTracingRecordGetRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public event CalcTracingRowChangeEventHandler CalcTracingRowDeleted;
+            public event CalcTracingRecordGetRowChangeEventHandler CalcTracingRecordGetRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void AddCalcTracingRow(CalcTracingRow row) {
+            public void AddCalcTracingRecordGetRow(CalcTracingRecordGetRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public CalcTracingRow AddCalcTracingRow(CalcLogRow parentCalcLogRowByFK_CalcTracing_To_CalcLog, double operand_1, double operand_2, int id_operations, double result, string error) {
-                CalcTracingRow rowCalcTracingRow = ((CalcTracingRow)(this.NewRow()));
+            public CalcTracingRecordGetRow AddCalcTracingRecordGetRow(double operand_1, double operand_2, string _operator, double result) {
+                CalcTracingRecordGetRow rowCalcTracingRecordGetRow = ((CalcTracingRecordGetRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        null,
-                        null,
                         operand_1,
                         operand_2,
-                        id_operations,
-                        result,
-                        error};
-                if ((parentCalcLogRowByFK_CalcTracing_To_CalcLog != null)) {
-                    columnValuesArray[1] = parentCalcLogRowByFK_CalcTracing_To_CalcLog[0];
-                }
-                rowCalcTracingRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowCalcTracingRow);
-                return rowCalcTracingRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public CalcTracingRow FindByid(int id) {
-                return ((CalcTracingRow)(this.Rows.Find(new object[] {
-                            id})));
+                        _operator,
+                        result};
+                rowCalcTracingRecordGetRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowCalcTracingRecordGetRow);
+                return rowCalcTracingRecordGetRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                CalcTracingDataTable cln = ((CalcTracingDataTable)(base.Clone()));
+                CalcTracingRecordGetDataTable cln = ((CalcTracingRecordGetDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -851,77 +801,62 @@ namespace Calculator.Win {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new CalcTracingDataTable();
+                return new CalcTracingRecordGetDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             internal void InitVars() {
-                this.columnid = base.Columns["id"];
-                this.columnid_condition = base.Columns["id_condition"];
                 this.columnoperand_1 = base.Columns["operand_1"];
                 this.columnoperand_2 = base.Columns["operand_2"];
-                this.columnid_operations = base.Columns["id_operations"];
+                this.columnoperator = base.Columns["operator"];
                 this.columnresult = base.Columns["result"];
-                this.columnerror = base.Columns["error"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             private void InitClass() {
-                this.columnid = new global::System.Data.DataColumn("id", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnid);
-                this.columnid_condition = new global::System.Data.DataColumn("id_condition", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnid_condition);
                 this.columnoperand_1 = new global::System.Data.DataColumn("operand_1", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnoperand_1);
                 this.columnoperand_2 = new global::System.Data.DataColumn("operand_2", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnoperand_2);
-                this.columnid_operations = new global::System.Data.DataColumn("id_operations", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnid_operations);
+                this.columnoperator = new global::System.Data.DataColumn("operator", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columnoperator.ExtendedProperties.Add("Generator_ColumnPropNameInTable", "operatorColumn");
+                this.columnoperator.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "columnoperator");
+                this.columnoperator.ExtendedProperties.Add("Generator_UserColumnName", "operator");
+                base.Columns.Add(this.columnoperator);
                 this.columnresult = new global::System.Data.DataColumn("result", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnresult);
-                this.columnerror = new global::System.Data.DataColumn("error", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnerror);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnid}, true));
-                this.columnid.AutoIncrement = true;
-                this.columnid.AutoIncrementSeed = -1;
-                this.columnid.AutoIncrementStep = -1;
-                this.columnid.AllowDBNull = false;
-                this.columnid.ReadOnly = true;
-                this.columnid.Unique = true;
-                this.columnid_condition.AllowDBNull = false;
                 this.columnoperand_1.AllowDBNull = false;
                 this.columnoperand_2.AllowDBNull = false;
-                this.columnid_operations.AllowDBNull = false;
-                this.columnerror.MaxLength = 256;
+                this.columnoperator.ReadOnly = true;
+                this.columnoperator.MaxLength = 2;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public CalcTracingRow NewCalcTracingRow() {
-                return ((CalcTracingRow)(this.NewRow()));
+            public CalcTracingRecordGetRow NewCalcTracingRecordGetRow() {
+                return ((CalcTracingRecordGetRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new CalcTracingRow(builder);
+                return new CalcTracingRecordGetRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(CalcTracingRow);
+                return typeof(CalcTracingRecordGetRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.CalcTracingRowChanged != null)) {
-                    this.CalcTracingRowChanged(this, new CalcTracingRowChangeEvent(((CalcTracingRow)(e.Row)), e.Action));
+                if ((this.CalcTracingRecordGetRowChanged != null)) {
+                    this.CalcTracingRecordGetRowChanged(this, new CalcTracingRecordGetRowChangeEvent(((CalcTracingRecordGetRow)(e.Row)), e.Action));
                 }
             }
             
@@ -929,8 +864,8 @@ namespace Calculator.Win {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.CalcTracingRowChanging != null)) {
-                    this.CalcTracingRowChanging(this, new CalcTracingRowChangeEvent(((CalcTracingRow)(e.Row)), e.Action));
+                if ((this.CalcTracingRecordGetRowChanging != null)) {
+                    this.CalcTracingRecordGetRowChanging(this, new CalcTracingRecordGetRowChangeEvent(((CalcTracingRecordGetRow)(e.Row)), e.Action));
                 }
             }
             
@@ -938,8 +873,8 @@ namespace Calculator.Win {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.CalcTracingRowDeleted != null)) {
-                    this.CalcTracingRowDeleted(this, new CalcTracingRowChangeEvent(((CalcTracingRow)(e.Row)), e.Action));
+                if ((this.CalcTracingRecordGetRowDeleted != null)) {
+                    this.CalcTracingRecordGetRowDeleted(this, new CalcTracingRecordGetRowChangeEvent(((CalcTracingRecordGetRow)(e.Row)), e.Action));
                 }
             }
             
@@ -947,14 +882,14 @@ namespace Calculator.Win {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.CalcTracingRowDeleting != null)) {
-                    this.CalcTracingRowDeleting(this, new CalcTracingRowChangeEvent(((CalcTracingRow)(e.Row)), e.Action));
+                if ((this.CalcTracingRecordGetRowDeleting != null)) {
+                    this.CalcTracingRecordGetRowDeleting(this, new CalcTracingRecordGetRowChangeEvent(((CalcTracingRecordGetRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void RemoveCalcTracingRow(CalcTracingRow row) {
+            public void RemoveCalcTracingRecordGetRow(CalcTracingRecordGetRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -981,7 +916,7 @@ namespace Calculator.Win {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "CalcTracingDataTable";
+                attribute2.FixedValue = "CalcTracingRecordGetDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -1146,63 +1081,30 @@ namespace Calculator.Win {
             public void SeterrorNull() {
                 this[this.tableCalcLog.errorColumn] = global::System.Convert.DBNull;
             }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public CalcTracingRow[] GetCalcTracingRows() {
-                if ((this.Table.ChildRelations["FK_CalcTracing_To_CalcLog"] == null)) {
-                    return new CalcTracingRow[0];
-                }
-                else {
-                    return ((CalcTracingRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CalcTracing_To_CalcLog"])));
-                }
-            }
         }
         
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class CalcTracingRow : global::System.Data.DataRow {
+        public partial class CalcTracingRecordGetRow : global::System.Data.DataRow {
             
-            private CalcTracingDataTable tableCalcTracing;
+            private CalcTracingRecordGetDataTable tableCalcTracingRecordGet;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            internal CalcTracingRow(global::System.Data.DataRowBuilder rb) : 
+            internal CalcTracingRecordGetRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableCalcTracing = ((CalcTracingDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public int id {
-                get {
-                    return ((int)(this[this.tableCalcTracing.idColumn]));
-                }
-                set {
-                    this[this.tableCalcTracing.idColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public int id_condition {
-                get {
-                    return ((int)(this[this.tableCalcTracing.id_conditionColumn]));
-                }
-                set {
-                    this[this.tableCalcTracing.id_conditionColumn] = value;
-                }
+                this.tableCalcTracingRecordGet = ((CalcTracingRecordGetDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public double operand_1 {
                 get {
-                    return ((double)(this[this.tableCalcTracing.operand_1Column]));
+                    return ((double)(this[this.tableCalcTracingRecordGet.operand_1Column]));
                 }
                 set {
-                    this[this.tableCalcTracing.operand_1Column] = value;
+                    this[this.tableCalcTracingRecordGet.operand_1Column] = value;
                 }
             }
             
@@ -1210,21 +1112,26 @@ namespace Calculator.Win {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public double operand_2 {
                 get {
-                    return ((double)(this[this.tableCalcTracing.operand_2Column]));
+                    return ((double)(this[this.tableCalcTracingRecordGet.operand_2Column]));
                 }
                 set {
-                    this[this.tableCalcTracing.operand_2Column] = value;
+                    this[this.tableCalcTracingRecordGet.operand_2Column] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public int id_operations {
+            public string _operator {
                 get {
-                    return ((int)(this[this.tableCalcTracing.id_operationsColumn]));
+                    try {
+                        return ((string)(this[this.tableCalcTracingRecordGet.operatorColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'operator\' in table \'CalcTracingRecordGet\' is DBNull.", e);
+                    }
                 }
                 set {
-                    this[this.tableCalcTracing.id_operationsColumn] = value;
+                    this[this.tableCalcTracingRecordGet.operatorColumn] = value;
                 }
             }
             
@@ -1233,66 +1140,39 @@ namespace Calculator.Win {
             public double result {
                 get {
                     try {
-                        return ((double)(this[this.tableCalcTracing.resultColumn]));
+                        return ((double)(this[this.tableCalcTracingRecordGet.resultColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'result\' in table \'CalcTracing\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'result\' in table \'CalcTracingRecordGet\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableCalcTracing.resultColumn] = value;
+                    this[this.tableCalcTracingRecordGet.resultColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string error {
-                get {
-                    try {
-                        return ((string)(this[this.tableCalcTracing.errorColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'error\' in table \'CalcTracing\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableCalcTracing.errorColumn] = value;
-                }
+            public bool Is_operatorNull() {
+                return this.IsNull(this.tableCalcTracingRecordGet.operatorColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public CalcLogRow CalcLogRow {
-                get {
-                    return ((CalcLogRow)(this.GetParentRow(this.Table.ParentRelations["FK_CalcTracing_To_CalcLog"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_CalcTracing_To_CalcLog"]);
-                }
+            public void Set_operatorNull() {
+                this[this.tableCalcTracingRecordGet.operatorColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsresultNull() {
-                return this.IsNull(this.tableCalcTracing.resultColumn);
+                return this.IsNull(this.tableCalcTracingRecordGet.resultColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetresultNull() {
-                this[this.tableCalcTracing.resultColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IserrorNull() {
-                return this.IsNull(this.tableCalcTracing.errorColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SeterrorNull() {
-                this[this.tableCalcTracing.errorColumn] = global::System.Convert.DBNull;
+                this[this.tableCalcTracingRecordGet.resultColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1334,22 +1214,22 @@ namespace Calculator.Win {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        public class CalcTracingRowChangeEvent : global::System.EventArgs {
+        public class CalcTracingRecordGetRowChangeEvent : global::System.EventArgs {
             
-            private CalcTracingRow eventRow;
+            private CalcTracingRecordGetRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public CalcTracingRowChangeEvent(CalcTracingRow row, global::System.Data.DataRowAction action) {
+            public CalcTracingRecordGetRowChangeEvent(CalcTracingRecordGetRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public CalcTracingRow Row {
+            public CalcTracingRecordGetRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -1831,7 +1711,7 @@ SELECT id, condition, result, error, time_calculation, login, host_name FROM Cal
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class CalcTracingTableAdapter : global::System.ComponentModel.Component {
+    public partial class CalcTracingRecordGetTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -1845,7 +1725,7 @@ SELECT id, condition, result, error, time_calculation, login, host_name FROM Cal
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        public CalcTracingTableAdapter() {
+        public CalcTracingRecordGetTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -1942,60 +1822,12 @@ SELECT id, condition, result, error, time_calculation, login, host_name FROM Cal
             this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "CalcTracing";
-            tableMapping.ColumnMappings.Add("id", "id");
-            tableMapping.ColumnMappings.Add("id_condition", "id_condition");
+            tableMapping.DataSetTable = "CalcTracingRecordGet";
             tableMapping.ColumnMappings.Add("operand_1", "operand_1");
             tableMapping.ColumnMappings.Add("operand_2", "operand_2");
-            tableMapping.ColumnMappings.Add("id_operations", "id_operations");
+            tableMapping.ColumnMappings.Add("Column1", "operator");
             tableMapping.ColumnMappings.Add("result", "result");
-            tableMapping.ColumnMappings.Add("error", "error");
             this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
-            this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[CalcTracing] WHERE (([id] = @Original_id) AND ([id_condition] = @Original_id_condition) AND ([operand_1] = @Original_operand_1) AND ([operand_2] = @Original_operand_2) AND ([id_operations] = @Original_id_operations) AND ((@IsNull_result = 1 AND [result] IS NULL) OR ([result] = @Original_result)) AND ((@IsNull_error = 1 AND [error] IS NULL) OR ([error] = @Original_error)))";
-            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_id_condition", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id_condition", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_operand_1", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "operand_1", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_operand_2", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "operand_2", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_id_operations", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id_operations", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_result", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "result", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_result", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "result", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_error", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "error", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_error", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "error", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[CalcTracing] ([id_condition], [operand_1], [operand_2], [id_operations], [result], [error]) VALUES (@id_condition, @operand_1, @operand_2, @id_operations, @result, @error);
-SELECT id, id_condition, operand_1, operand_2, id_operations, result, error FROM CalcTracing WHERE (id = SCOPE_IDENTITY())";
-            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id_condition", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id_condition", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@operand_1", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "operand_1", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@operand_2", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "operand_2", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id_operations", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id_operations", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@result", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "result", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@error", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "error", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
-            this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[CalcTracing] SET [id_condition] = @id_condition, [operand_1] = @operand_1, [operand_2] = @operand_2, [id_operations] = @id_operations, [result] = @result, [error] = @error WHERE (([id] = @Original_id) AND ([id_condition] = @Original_id_condition) AND ([operand_1] = @Original_operand_1) AND ([operand_2] = @Original_operand_2) AND ([id_operations] = @Original_id_operations) AND ((@IsNull_result = 1 AND [result] IS NULL) OR ([result] = @Original_result)) AND ((@IsNull_error = 1 AND [error] IS NULL) OR ([error] = @Original_error)));
-SELECT id, id_condition, operand_1, operand_2, id_operations, result, error FROM CalcTracing WHERE (id = @id)";
-            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id_condition", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id_condition", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@operand_1", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "operand_1", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@operand_2", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "operand_2", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id_operations", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id_operations", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@result", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "result", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@error", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "error", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_id_condition", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id_condition", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_operand_1", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "operand_1", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_operand_2", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "operand_2", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_id_operations", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id_operations", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_result", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "result", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_result", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "result", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_error", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "error", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_error", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "error", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2011,17 +1843,24 @@ SELECT id, id_condition, operand_1, operand_2, id_operations, result, error FROM
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT id, id_condition, operand_1, operand_2, id_operations, result, error FROM " +
-                "dbo.CalcTracing";
-            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[0].CommandText = "dbo.CalcTracingRecordGet";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(CalculatorHistoryDataSet.CalcTracingDataTable dataTable) {
+        public virtual int Fill(CalculatorHistoryDataSet.CalcTracingRecordGetDataTable dataTable, global::System.Nullable<int> id) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((id.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(id.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -2033,186 +1872,17 @@ SELECT id, id_condition, operand_1, operand_2, id_operations, result, error FROM
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual CalculatorHistoryDataSet.CalcTracingDataTable GetData() {
+        public virtual CalculatorHistoryDataSet.CalcTracingRecordGetDataTable GetData(global::System.Nullable<int> id) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            CalculatorHistoryDataSet.CalcTracingDataTable dataTable = new CalculatorHistoryDataSet.CalcTracingDataTable();
+            if ((id.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(id.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            CalculatorHistoryDataSet.CalcTracingRecordGetDataTable dataTable = new CalculatorHistoryDataSet.CalcTracingRecordGetDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(CalculatorHistoryDataSet.CalcTracingDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(CalculatorHistoryDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "CalcTracing");
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new global::System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_id, int Original_id_condition, double Original_operand_1, double Original_operand_2, int Original_id_operations, global::System.Nullable<double> Original_result, string Original_error) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_id));
-            this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_id_condition));
-            this.Adapter.DeleteCommand.Parameters[2].Value = ((double)(Original_operand_1));
-            this.Adapter.DeleteCommand.Parameters[3].Value = ((double)(Original_operand_2));
-            this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_id_operations));
-            if ((Original_result.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[6].Value = ((double)(Original_result.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
-            if ((Original_error == null)) {
-                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[8].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[8].Value = ((string)(Original_error));
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
-            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.DeleteCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int id_condition, double operand_1, double operand_2, int id_operations, global::System.Nullable<double> result, string error) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(id_condition));
-            this.Adapter.InsertCommand.Parameters[1].Value = ((double)(operand_1));
-            this.Adapter.InsertCommand.Parameters[2].Value = ((double)(operand_2));
-            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(id_operations));
-            if ((result.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((double)(result.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            if ((error == null)) {
-                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(error));
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int id_condition, double operand_1, double operand_2, int id_operations, global::System.Nullable<double> result, string error, int Original_id, int Original_id_condition, double Original_operand_1, double Original_operand_2, int Original_id_operations, global::System.Nullable<double> Original_result, string Original_error, int id) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(id_condition));
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((double)(operand_1));
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((double)(operand_2));
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(id_operations));
-            if ((result.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((double)(result.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            if ((error == null)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(error));
-            }
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_id));
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_id_condition));
-            this.Adapter.UpdateCommand.Parameters[8].Value = ((double)(Original_operand_1));
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((double)(Original_operand_2));
-            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_id_operations));
-            if ((Original_result.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((double)(Original_result.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
-            }
-            if ((Original_error == null)) {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((string)(Original_error));
-            }
-            this.Adapter.UpdateCommand.Parameters[15].Value = ((int)(id));
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
-            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.UpdateCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.UpdateCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int id_condition, double operand_1, double operand_2, int id_operations, global::System.Nullable<double> result, string error, int Original_id, int Original_id_condition, double Original_operand_1, double Original_operand_2, int Original_id_operations, global::System.Nullable<double> Original_result, string Original_error) {
-            return this.Update(id_condition, operand_1, operand_2, id_operations, result, error, Original_id, Original_id_condition, Original_operand_1, Original_operand_2, Original_id_operations, Original_result, Original_error, Original_id);
         }
     }
     
@@ -2229,8 +1899,6 @@ SELECT id, id_condition, operand_1, operand_2, id_operations, result, error FROM
         private UpdateOrderOption _updateOrder;
         
         private CalcLogTableAdapter _calcLogTableAdapter;
-        
-        private CalcTracingTableAdapter _calcTracingTableAdapter;
         
         private bool _backupDataSetBeforeUpdate;
         
@@ -2263,20 +1931,6 @@ SELECT id, id_condition, operand_1, operand_2, id_operations, result, error FROM
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
-            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
-            "a", "System.Drawing.Design.UITypeEditor")]
-        public CalcTracingTableAdapter CalcTracingTableAdapter {
-            get {
-                return this._calcTracingTableAdapter;
-            }
-            set {
-                this._calcTracingTableAdapter = value;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public bool BackupDataSetBeforeUpdate {
             get {
                 return this._backupDataSetBeforeUpdate;
@@ -2298,10 +1952,6 @@ SELECT id, id_condition, operand_1, operand_2, id_operations, result, error FROM
                             && (this._calcLogTableAdapter.Connection != null))) {
                     return this._calcLogTableAdapter.Connection;
                 }
-                if (((this._calcTracingTableAdapter != null) 
-                            && (this._calcTracingTableAdapter.Connection != null))) {
-                    return this._calcTracingTableAdapter.Connection;
-                }
                 return null;
             }
             set {
@@ -2316,9 +1966,6 @@ SELECT id, id_condition, operand_1, operand_2, id_operations, result, error FROM
             get {
                 int count = 0;
                 if ((this._calcLogTableAdapter != null)) {
-                    count = (count + 1);
-                }
-                if ((this._calcTracingTableAdapter != null)) {
                     count = (count + 1);
                 }
                 return count;
@@ -2341,15 +1988,6 @@ SELECT id, id_condition, operand_1, operand_2, id_operations, result, error FROM
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._calcTracingTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.CalcTracing.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._calcTracingTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             return result;
         }
         
@@ -2368,14 +2006,6 @@ SELECT id, id_condition, operand_1, operand_2, id_operations, result, error FROM
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._calcTracingTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.CalcTracing.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._calcTracingTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             return result;
         }
         
@@ -2386,14 +2016,6 @@ SELECT id, id_condition, operand_1, operand_2, id_operations, result, error FROM
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private int UpdateDeletedRows(CalculatorHistoryDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
-            if ((this._calcTracingTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.CalcTracing.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._calcTracingTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._calcLogTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.CalcLog.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -2446,11 +2068,6 @@ SELECT id, id_condition, operand_1, operand_2, id_operations, result, error FROM
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
                         "tring.");
             }
-            if (((this._calcTracingTableAdapter != null) 
-                        && (this.MatchTableAdapterConnection(this._calcTracingTableAdapter.Connection) == false))) {
-                throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
-                        "tring.");
-            }
             global::System.Data.IDbConnection workConnection = this.Connection;
             if ((workConnection == null)) {
                 throw new global::System.ApplicationException("TableAdapterManager contains no connection information. Set each TableAdapterMana" +
@@ -2490,15 +2107,6 @@ SELECT id, id_condition, operand_1, operand_2, id_operations, result, error FROM
                     if (this._calcLogTableAdapter.Adapter.AcceptChangesDuringUpdate) {
                         this._calcLogTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
                         adaptersWithAcceptChangesDuringUpdate.Add(this._calcLogTableAdapter.Adapter);
-                    }
-                }
-                if ((this._calcTracingTableAdapter != null)) {
-                    revertConnections.Add(this._calcTracingTableAdapter, this._calcTracingTableAdapter.Connection);
-                    this._calcTracingTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
-                    this._calcTracingTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
-                    if (this._calcTracingTableAdapter.Adapter.AcceptChangesDuringUpdate) {
-                        this._calcTracingTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
-                        adaptersWithAcceptChangesDuringUpdate.Add(this._calcTracingTableAdapter.Adapter);
                     }
                 }
                 // 
@@ -2562,10 +2170,6 @@ SELECT id, id_condition, operand_1, operand_2, id_operations, result, error FROM
                 if ((this._calcLogTableAdapter != null)) {
                     this._calcLogTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._calcLogTableAdapter]));
                     this._calcLogTableAdapter.Transaction = null;
-                }
-                if ((this._calcTracingTableAdapter != null)) {
-                    this._calcTracingTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._calcTracingTableAdapter]));
-                    this._calcTracingTableAdapter.Transaction = null;
                 }
                 if ((0 < adaptersWithAcceptChangesDuringUpdate.Count)) {
                     global::System.Data.Common.DataAdapter[] adapters = new System.Data.Common.DataAdapter[adaptersWithAcceptChangesDuringUpdate.Count];

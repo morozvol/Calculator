@@ -8,14 +8,11 @@ namespace Calculator.Win
     {
         private Record _record, _result;
 
-
-
         public AddOrEditDialog(Record record)
         {
             InitializeComponent();
             _record = record;
-        }
-        
+        } 
 
         private void button2_Click(object sender, System.EventArgs e)
         { 
@@ -31,10 +28,6 @@ namespace Calculator.Win
                         txtError.Text, dateTime.Value, txtLogin.Text, txtHostName.Text);
                     Close();
                 }
-                else
-                {
-                    //TODO:: вывод сообщения о ошибке
-                }
         }
 
         public Record GetResult()
@@ -42,7 +35,7 @@ namespace Calculator.Win
             return _result;
         }
 
-        private static bool IsValid(string conditon, string result, string error, string dateTime, string login, string hostName)
+        private bool IsValid(string conditon, string result, string error, string dateTime, string login, string hostName)
         {
             if (dateTime == "" || login == "" || hostName == "" || (result == "" && error == "")) return false;
             double buf;
@@ -50,6 +43,7 @@ namespace Calculator.Win
             return true;
         }
 
+       
         private void AddOrEdit_Load(object sender, EventArgs e)
         {
             if (_record != null)

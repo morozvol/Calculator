@@ -33,6 +33,19 @@ namespace Calculator.Win
         {
             this.components = new System.ComponentModel.Container();
             this.gridSplitContainer1 = new DevExpress.XtraGrid.GridSplitContainer();
+            this.calcLogBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.calculatorHistoryDataSet = new Calculator.Win.CalculatorHistoryDataSet();
+            this.calcTracingRecordGetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.calcLogTableAdapter = new Calculator.Win.CalculatorHistoryDataSetTableAdapters.CalcLogTableAdapter();
+            this.calcTracingRecordGetTableAdapter = new Calculator.Win.CalculatorHistoryDataSetTableAdapters.CalcTracingRecordGetTableAdapter();
+            this.gcCalcTracing = new DevExpress.XtraGrid.GridControl();
+            this.gvCalcTracing = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colOperand_1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colOperand_2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colOperator = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTracingResult = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridView3 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.txtTask = new System.Windows.Forms.TextBox();
             this.label = new System.Windows.Forms.Label();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
@@ -40,27 +53,32 @@ namespace Calculator.Win
             this.изменитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnCalculate = new System.Windows.Forms.Button();
-            this.gridControl1 = new DevExpress.XtraGrid.GridControl();
-            this.calcLogBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.calculatorHistoryDataSet = new Calculator.Win.CalculatorHistoryDataSet();
-            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gcCalcLog = new DevExpress.XtraGrid.GridControl();
+            this.gvCalcLog = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCondition = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colResult = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colError = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.coltime_calculation = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTime_calculation = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colLogin = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colhost_name = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colHost_name = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridView4 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.calcLogTableAdapter = new Calculator.Win.CalculatorHistoryDataSetTableAdapters.CalcLogTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.gridSplitContainer1)).BeginInit();
             this.gridSplitContainer1.SuspendLayout();
-            this.menuStrip2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.calcLogBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.calculatorHistoryDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.calcTracingRecordGetBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gcCalcTracing)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCalcTracing)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            this.menuStrip2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gcCalcLog)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCalcLog)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,6 +89,97 @@ namespace Calculator.Win
             this.gridSplitContainer1.Name = "gridSplitContainer1";
             this.gridSplitContainer1.Size = new System.Drawing.Size(400, 400);
             this.gridSplitContainer1.TabIndex = 0;
+            // 
+            // calcLogBindingSource
+            // 
+            this.calcLogBindingSource.DataMember = "CalcLog";
+            this.calcLogBindingSource.DataSource = this.calculatorHistoryDataSet;
+            // 
+            // calculatorHistoryDataSet
+            // 
+            this.calculatorHistoryDataSet.DataSetName = "CalculatorHistoryDataSet";
+            this.calculatorHistoryDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // calcTracingRecordGetBindingSource
+            // 
+            this.calcTracingRecordGetBindingSource.DataMember = "CalcTracingRecordGet";
+            this.calcTracingRecordGetBindingSource.DataSource = this.calculatorHistoryDataSet;
+            // 
+            // calcLogTableAdapter
+            // 
+            this.calcLogTableAdapter.ClearBeforeFill = true;
+            // 
+            // calcTracingRecordGetTableAdapter
+            // 
+            this.calcTracingRecordGetTableAdapter.ClearBeforeFill = true;
+            // 
+            // gcCalcTracing
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.gcCalcTracing, 3);
+            this.gcCalcTracing.DataSource = this.calcTracingRecordGetBindingSource;
+            this.gcCalcTracing.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gcCalcTracing.Location = new System.Drawing.Point(3, 398);
+            this.gcCalcTracing.MainView = this.gvCalcTracing;
+            this.gcCalcTracing.Name = "gcCalcTracing";
+            this.gcCalcTracing.Size = new System.Drawing.Size(1030, 162);
+            this.gcCalcTracing.TabIndex = 9;
+            this.gcCalcTracing.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gvCalcTracing,
+            this.gridView3,
+            this.gridView1});
+            // 
+            // gvCalcTracing
+            // 
+            this.gvCalcTracing.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colOperand_1,
+            this.colOperand_2,
+            this.colOperator,
+            this.colTracingResult});
+            this.gvCalcTracing.GridControl = this.gcCalcTracing;
+            this.gvCalcTracing.Name = "gvCalcTracing";
+            this.gvCalcTracing.OptionsView.ShowGroupPanel = false;
+            // 
+            // colOperand_1
+            // 
+            this.colOperand_1.Caption = "операнд1";
+            this.colOperand_1.FieldName = "operand_1";
+            this.colOperand_1.Name = "colOperand_1";
+            this.colOperand_1.Visible = true;
+            this.colOperand_1.VisibleIndex = 0;
+            // 
+            // colOperand_2
+            // 
+            this.colOperand_2.Caption = "операнд 2";
+            this.colOperand_2.FieldName = "operand_2";
+            this.colOperand_2.Name = "colOperand_2";
+            this.colOperand_2.Visible = true;
+            this.colOperand_2.VisibleIndex = 1;
+            // 
+            // colOperator
+            // 
+            this.colOperator.Caption = "оператор";
+            this.colOperator.FieldName = "operator";
+            this.colOperator.Name = "colOperator";
+            this.colOperator.Visible = true;
+            this.colOperator.VisibleIndex = 2;
+            // 
+            // colTracingResult
+            // 
+            this.colTracingResult.Caption = "результат";
+            this.colTracingResult.FieldName = "result";
+            this.colTracingResult.Name = "colTracingResult";
+            this.colTracingResult.Visible = true;
+            this.colTracingResult.VisibleIndex = 3;
+            // 
+            // gridView3
+            // 
+            this.gridView3.GridControl = this.gcCalcTracing;
+            this.gridView3.Name = "gridView3";
+            // 
+            // gridView1
+            // 
+            this.gridView1.GridControl = this.gcCalcTracing;
+            this.gridView1.Name = "gridView1";
             // 
             // txtTask
             // 
@@ -89,7 +198,7 @@ namespace Calculator.Win
             this.label.Location = new System.Drawing.Point(3, 26);
             this.label.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
             this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(66, 30);
+            this.label.Size = new System.Drawing.Size(66, 23);
             this.label.TabIndex = 6;
             this.label.Text = "Выражение";
             // 
@@ -130,8 +239,7 @@ namespace Calculator.Win
             // 
             // btnCalculate
             // 
-            this.btnCalculate.Location = new System.Drawing.Point(958, 30);
-            this.btnCalculate.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.btnCalculate.Location = new System.Drawing.Point(958, 23);
             this.btnCalculate.Name = "btnCalculate";
             this.btnCalculate.Size = new System.Drawing.Size(75, 23);
             this.btnCalculate.TabIndex = 7;
@@ -139,44 +247,37 @@ namespace Calculator.Win
             this.btnCalculate.UseVisualStyleBackColor = true;
             this.btnCalculate.Click += new System.EventHandler(this.btnCalculate_Click);
             // 
-            // gridControl1
+            // gcCalcLog
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.gridControl1, 3);
-            this.gridControl1.DataSource = this.calcLogBindingSource;
-            this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControl1.Location = new System.Drawing.Point(3, 59);
-            this.gridControl1.MainView = this.gridView1;
-            this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1030, 356);
-            this.gridControl1.TabIndex = 5;
-            this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView1});
+            this.tableLayoutPanel1.SetColumnSpan(this.gcCalcLog, 3);
+            this.gcCalcLog.DataSource = this.calcLogBindingSource;
+            this.gcCalcLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gcCalcLog.Location = new System.Drawing.Point(3, 52);
+            this.gcCalcLog.MainView = this.gvCalcLog;
+            this.gcCalcLog.Name = "gcCalcLog";
+            this.gcCalcLog.Size = new System.Drawing.Size(1030, 340);
+            this.gcCalcLog.TabIndex = 5;
+            this.gcCalcLog.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gvCalcLog,
+            this.gridView4,
+            this.gridView2});
             // 
-            // calcLogBindingSource
+            // gvCalcLog
             // 
-            this.calcLogBindingSource.DataMember = "CalcLog";
-            this.calcLogBindingSource.DataSource = this.calculatorHistoryDataSet;
-            // 
-            // calculatorHistoryDataSet
-            // 
-            this.calculatorHistoryDataSet.DataSetName = "CalculatorHistoryDataSet";
-            this.calculatorHistoryDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // gridView1
-            // 
-            this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gvCalcLog.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colId,
             this.colCondition,
             this.colResult,
             this.colError,
-            this.coltime_calculation,
+            this.colTime_calculation,
             this.colLogin,
-            this.colhost_name});
-            this.gridView1.GridControl = this.gridControl1;
-            this.gridView1.Name = "gridView1";
-            this.gridView1.OptionsView.ShowGroupPanel = false;
-            this.gridView1.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
+            this.colHost_name});
+            this.gvCalcLog.GridControl = this.gcCalcLog;
+            this.gvCalcLog.Name = "gvCalcLog";
+            this.gvCalcLog.OptionsView.ShowGroupPanel = false;
+            this.gvCalcLog.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colId, DevExpress.Data.ColumnSortOrder.Descending)});
+            this.gvCalcLog.FocusedRowObjectChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowObjectChangedEventHandler(this.gvCalcLog_SelectionChanged);
             // 
             // colId
             // 
@@ -190,6 +291,7 @@ namespace Calculator.Win
             // 
             // colCondition
             // 
+            this.colCondition.Caption = "Выражение";
             this.colCondition.FieldName = "condition";
             this.colCondition.Name = "colCondition";
             this.colCondition.OptionsColumn.AllowEdit = false;
@@ -200,6 +302,7 @@ namespace Calculator.Win
             // 
             // colResult
             // 
+            this.colResult.Caption = "Результат";
             this.colResult.FieldName = "result";
             this.colResult.Name = "colResult";
             this.colResult.OptionsColumn.AllowEdit = false;
@@ -210,6 +313,7 @@ namespace Calculator.Win
             // 
             // colError
             // 
+            this.colError.Caption = "Ошибка";
             this.colError.FieldName = "error";
             this.colError.Name = "colError";
             this.colError.OptionsColumn.AllowEdit = false;
@@ -218,20 +322,22 @@ namespace Calculator.Win
             this.colError.Visible = true;
             this.colError.VisibleIndex = 2;
             // 
-            // coltime_calculation
+            // colTime_calculation
             // 
-            this.coltime_calculation.FieldName = "time_calculation";
-            this.coltime_calculation.GroupFormat.FormatString = "MM.dd.yy hh:mm";
-            this.coltime_calculation.GroupFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-            this.coltime_calculation.Name = "coltime_calculation";
-            this.coltime_calculation.OptionsColumn.AllowEdit = false;
-            this.coltime_calculation.OptionsColumn.ShowInExpressionEditor = false;
-            this.coltime_calculation.OptionsEditForm.UseEditorColRowSpan = false;
-            this.coltime_calculation.Visible = true;
-            this.coltime_calculation.VisibleIndex = 3;
+            this.colTime_calculation.Caption = "Дата и время вычисления";
+            this.colTime_calculation.DisplayFormat.FormatString = "MM.dd.yyyy  hh:mm";
+            this.colTime_calculation.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            this.colTime_calculation.FieldName = "time_calculation";
+            this.colTime_calculation.Name = "colTime_calculation";
+            this.colTime_calculation.OptionsColumn.AllowEdit = false;
+            this.colTime_calculation.OptionsColumn.ShowInExpressionEditor = false;
+            this.colTime_calculation.OptionsEditForm.UseEditorColRowSpan = false;
+            this.colTime_calculation.Visible = true;
+            this.colTime_calculation.VisibleIndex = 3;
             // 
             // colLogin
             // 
+            this.colLogin.Caption = "Имя пользователя";
             this.colLogin.FieldName = "login";
             this.colLogin.Name = "colLogin";
             this.colLogin.OptionsColumn.AllowEdit = false;
@@ -240,15 +346,26 @@ namespace Calculator.Win
             this.colLogin.Visible = true;
             this.colLogin.VisibleIndex = 4;
             // 
-            // colhost_name
+            // colHost_name
             // 
-            this.colhost_name.FieldName = "host_name";
-            this.colhost_name.Name = "colhost_name";
-            this.colhost_name.OptionsColumn.AllowEdit = false;
-            this.colhost_name.OptionsColumn.ShowInExpressionEditor = false;
-            this.colhost_name.OptionsEditForm.UseEditorColRowSpan = false;
-            this.colhost_name.Visible = true;
-            this.colhost_name.VisibleIndex = 5;
+            this.colHost_name.Caption = "Имя компьютера";
+            this.colHost_name.FieldName = "host_name";
+            this.colHost_name.Name = "colHost_name";
+            this.colHost_name.OptionsColumn.AllowEdit = false;
+            this.colHost_name.OptionsColumn.ShowInExpressionEditor = false;
+            this.colHost_name.OptionsEditForm.UseEditorColRowSpan = false;
+            this.colHost_name.Visible = true;
+            this.colHost_name.VisibleIndex = 5;
+            // 
+            // gridView4
+            // 
+            this.gridView4.GridControl = this.gcCalcLog;
+            this.gridView4.Name = "gridView4";
+            // 
+            // gridView2
+            // 
+            this.gridView2.GridControl = this.gcCalcLog;
+            this.gridView2.Name = "gridView2";
             // 
             // tableLayoutPanel1
             // 
@@ -256,12 +373,12 @@ namespace Calculator.Win
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Controls.Add(this.gridControl1, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.gcCalcLog, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.btnCalculate, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.menuStrip2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.txtTask, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.listBox1, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.gcCalcTracing, 0, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -270,24 +387,10 @@ namespace Calculator.Win
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 145F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 168F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1036, 563);
             this.tableLayoutPanel1.TabIndex = 6;
-            // 
-            // listBox1
-            // 
-            this.tableLayoutPanel1.SetColumnSpan(this.listBox1, 3);
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(3, 421);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(1030, 139);
-            this.listBox1.TabIndex = 9;
-            // 
-            // calcLogTableAdapter
-            // 
-            this.calcLogTableAdapter.ClearBeforeFill = true;
             // 
             // CalculatorForm
             // 
@@ -300,12 +403,19 @@ namespace Calculator.Win
             this.Load += new System.EventHandler(this.CalculatorForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridSplitContainer1)).EndInit();
             this.gridSplitContainer1.ResumeLayout(false);
-            this.menuStrip2.ResumeLayout(false);
-            this.menuStrip2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.calcLogBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.calculatorHistoryDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.calcTracingRecordGetBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gcCalcTracing)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCalcTracing)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            this.menuStrip2.ResumeLayout(false);
+            this.menuStrip2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gcCalcLog)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCalcLog)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
@@ -314,32 +424,38 @@ namespace Calculator.Win
 
         #endregion
         private DevExpress.XtraGrid.GridSplitContainer gridSplitContainer1;
-        private System.Windows.Forms.TextBox txtTask;
-        private System.Windows.Forms.Label label;
-        private System.Windows.Forms.MenuStrip menuStrip2;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private DevExpress.XtraGrid.GridControl gridControl1;
-        private System.Windows.Forms.Button btnCalculate;
-        private System.Windows.Forms.ToolStripMenuItem создатьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem изменитьToolStripMenuItem;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private CalculatorHistoryDataSet calculatorHistoryDataSet;
         private System.Windows.Forms.BindingSource calcLogBindingSource;
         private CalculatorHistoryDataSetTableAdapters.CalcLogTableAdapter calcLogTableAdapter;
-        private DevExpress.XtraGrid.Columns.GridColumn colid;
-        private DevExpress.XtraGrid.Columns.GridColumn colcondition;
-        private DevExpress.XtraGrid.Columns.GridColumn colresult;
-        private DevExpress.XtraGrid.Columns.GridColumn colerror;
-        private DevExpress.XtraGrid.Columns.GridColumn coltime_calculation;
-        private DevExpress.XtraGrid.Columns.GridColumn collogin;
-        private DevExpress.XtraGrid.Columns.GridColumn colhost_name;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.BindingSource calcTracingRecordGetBindingSource;
+        private CalculatorHistoryDataSetTableAdapters.CalcTracingRecordGetTableAdapter calcTracingRecordGetTableAdapter;
+        private DevExpress.XtraGrid.GridControl gcCalcTracing;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private DevExpress.XtraGrid.GridControl gcCalcLog;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvCalcLog;
         private DevExpress.XtraGrid.Columns.GridColumn colId;
         private DevExpress.XtraGrid.Columns.GridColumn colCondition;
         private DevExpress.XtraGrid.Columns.GridColumn colResult;
         private DevExpress.XtraGrid.Columns.GridColumn colError;
+        private DevExpress.XtraGrid.Columns.GridColumn colTime_calculation;
         private DevExpress.XtraGrid.Columns.GridColumn colLogin;
+        private DevExpress.XtraGrid.Columns.GridColumn colHost_name;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView4;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
+        private System.Windows.Forms.Button btnCalculate;
+        private System.Windows.Forms.MenuStrip menuStrip2;
+        private System.Windows.Forms.ToolStripMenuItem создатьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem изменитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
+        private System.Windows.Forms.Label label;
+        private System.Windows.Forms.TextBox txtTask;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvCalcTracing;
+        private DevExpress.XtraGrid.Columns.GridColumn colOperand_1;
+        private DevExpress.XtraGrid.Columns.GridColumn colOperand_2;
+        private DevExpress.XtraGrid.Columns.GridColumn colOperator;
+        private DevExpress.XtraGrid.Columns.GridColumn colTracingResult;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView3;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
     }
 }
 

@@ -142,6 +142,7 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnCancel.Location = new System.Drawing.Point(3, 169);
             this.btnCancel.Name = "btnCancel";
@@ -213,8 +214,10 @@
             // 
             // AddOrEditDialog
             // 
+            this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(475, 200);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "AddOrEditDialog";
